@@ -1,0 +1,543 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<title>App Store スクリーンショット（1290×2796）</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Manrope:wght@500;600;700;800&family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@24,400,1,0&display=swap">
+<style>
+/* ------------------------------------------------------------------
+   出力サイズ: 1290 × 2796（iPhone 6.9インチ / App Store 必須サイズ）
+   端末画面を 430×932pt で組み、2.4倍に拡大して配置している。
+   色・角丸・余白は src/theme/index.ts の実装値をそのまま使用。
+   ------------------------------------------------------------------ */
+:root{
+  --accent:#1B90D6; --accent-lite:#3BA6E4; --accent-deep:#0E6FAF; --accent-soft:#E8F4FC;
+  --ink:#17232E; --body:#3C4B58; --sub:#5A6874; --muted:#7B8896; --faint:#8E9BA7; --ph:#A9B6C2;
+  --screen:#F2F6FA; --card:#FFFFFF; --subtle:#EDF2F6; --track:#EEF2F6; --border:#E4EBF1; --divider:#F1F5F9;
+  --expense:#D9603F; --income:#16A37B; --savings:#2F7FC4; --warning:#D98C3F;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:#20303D;font-family:system-ui,-apple-system,"Hiragino Sans","Noto Sans JP",sans-serif}
+.num{font-family:Manrope,system-ui,sans-serif;font-variant-numeric:tabular-nums}
+.mi{font-family:'Material Symbols Rounded';font-weight:400;font-style:normal;line-height:1;
+    -webkit-font-feature-settings:'liga';user-select:none}
+
+/* ---- 画面外のガイド（キャプチャ対象外） ---- */
+.guide{color:#9FB2C0;font-size:13px;padding:18px 24px 6px;max-width:1290px;margin:0 auto}
+.guide b{color:#fff}
+
+/* ---- アートボード ---- */
+.shot{
+  width:1290px;height:2796px;margin:0 auto 28px;position:relative;overflow:hidden;
+  display:flex;flex-direction:column;align-items:center;
+}
+.cap{padding:132px 96px 0;text-align:center;color:#fff}
+.cap h2{font-size:82px;line-height:1.28;font-weight:800;letter-spacing:-.01em}
+.cap p{font-size:40px;line-height:1.5;margin-top:26px;opacity:.88;font-weight:500}
+/* 端末枠 */
+.dev{width:1032px;height:2237px;margin-top:74px;border-radius:118px;overflow:hidden;
+     background:var(--screen);box-shadow:0 40px 90px rgba(8,26,40,.42);position:relative;flex:none}
+.scr{width:430px;height:932px;transform:scale(2.4);transform-origin:top left;
+     background:var(--screen);position:relative;overflow:hidden}
+
+/* ================= アプリ画面の部品（実装準拠） ================= */
+.hdr{background:linear-gradient(160deg,var(--accent-lite),var(--accent-deep));color:#fff;padding:62px 20px 20px}
+.hdr-top{display:flex;align-items:center;gap:8px;margin-bottom:14px}
+.chip{width:26px;height:26px;border-radius:9px;background:rgba(255,255,255,.16);
+      display:flex;align-items:center;justify-content:center;font-size:15px}
+.hdr-month{font-size:14px;font-weight:700}
+.hdr-cap{font-size:11.5px;opacity:.85;margin-bottom:2px}
+.hero{display:flex;align-items:flex-end;gap:8px}
+.hero .v{font-size:40px;font-weight:800;letter-spacing:-.02em;line-height:1}
+.hero .d{font-size:11.5px;font-weight:600;padding-bottom:5px;opacity:.9}
+.hdr-sub{font-size:10px;opacity:.8;margin-top:4px}
+.bar{height:8px;border-radius:99px;background:rgba(255,255,255,.22);margin-top:16px;overflow:hidden}
+.bar>i{display:block;height:100%;background:#fff;border-radius:99px}
+.hdr-foot{display:flex;justify-content:space-between;font-size:11px;margin-top:9px;opacity:.92;font-weight:500}
+.over{color:#FFE2D8;font-weight:700}
+
+.body{padding:18px 0 0}
+.card{background:var(--card);border-radius:18px;margin:0 16px 14px;box-shadow:0 1px 2px rgba(20,40,60,.06)}
+.ch{display:flex;align-items:baseline;justify-content:space-between;padding:16px 16px 12px}
+.ch h3{font-size:12.5px;font-weight:700;color:var(--ink)}
+.ch .lk{font-size:10.5px;color:var(--accent);font-weight:500}
+.cb{padding:0 16px 16px}
+.cb.flush{padding:0}
+
+.tile{border-radius:32%;display:flex;align-items:center;justify-content:center;color:#fff;flex:none}
+.t34{width:34px;height:34px}.t34 .mi{font-size:19px}
+.t32{width:32px;height:32px}.t32 .mi{font-size:18px}
+.t22{width:22px;height:22px;border-radius:7px}.t22 .mi{font-size:13px}
+.t44{width:44px;height:44px}.t44 .mi{font-size:24px}
+
+/* 予算行 */
+.bg-row{padding:7px 0}
+.bg-h{display:flex;align-items:center;gap:9px;margin-bottom:6px}
+.bg-h .nm{flex:1;font-size:11.5px;color:var(--body)}
+.bg-h .am{font-size:12px;font-weight:700;color:var(--ink)}
+.bg-h .pc{font-size:10.5px;font-weight:500;width:40px;text-align:right}
+.tr{height:5px;border-radius:99px;background:var(--track);overflow:hidden}
+.tr>i{display:block;height:100%;border-radius:99px}
+.bg-f{display:flex;justify-content:space-between;margin-top:6px;font-size:10.5px}
+.bg-f .l{color:var(--muted)}
+
+/* 取引行 */
+.tx{display:flex;align-items:center;gap:11px;padding:11px 16px}
+.tx .m{flex:1;min-width:0}
+.tx .t1{font-size:12.5px;color:var(--ink);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.tx .t2{font-size:10.5px;color:var(--muted);margin-top:2px}
+.tx .a{font-size:13.5px;font-weight:700}
+.dv{height:1px;background:var(--divider);margin-left:61px}
+
+/* サマリ */
+.sm{display:flex;align-items:center;margin-top:16px}
+.sm .c{flex:1;text-align:center}
+.sm .l{font-size:10px;color:var(--muted);display:flex;align-items:center;justify-content:center;gap:4px}
+.sm .l .mi{font-size:13px}
+.sm .v{font-size:15px;font-weight:700;margin-top:3px}
+.sm .sep{width:1px;align-self:stretch;background:var(--border)}
+.bal{text-align:center;padding-top:4px}
+.bal .l{font-size:11px;color:var(--muted)}
+.bal .v{font-size:30px;font-weight:800;margin-top:2px}
+
+/* タブバー */
+.tab{position:absolute;left:0;right:0;bottom:0;height:76px;background:#fff;border-top:1px solid var(--border);
+     display:flex;align-items:flex-start;padding-top:11px}
+.tab .i{flex:1;display:flex;flex-direction:column;align-items:center;gap:5px;color:var(--muted)}
+.tab .i.on{color:var(--accent)}
+.tab .i .mi{font-size:22px}
+.tab .i span.lb{font-size:9.5px;font-weight:600}
+.tab .mid{flex:1;display:flex;justify-content:center}
+.fab{width:54px;height:54px;border-radius:50%;margin-top:-16px;color:#fff;
+     background:linear-gradient(160deg,var(--accent-lite),var(--accent-deep));
+     display:flex;align-items:center;justify-content:center;box-shadow:0 8px 18px rgba(14,111,175,.36)}
+.fab .mi{font-size:28px}
+
+/* 上部バー（ホーム以外） */
+.top{background:#fff;border-bottom:1px solid var(--border);padding:58px 20px 12px;
+     display:flex;align-items:center;justify-content:space-between}
+.top .nav{width:30px;height:30px;border-radius:10px;background:var(--subtle);color:var(--sub);
+          display:flex;align-items:center;justify-content:center;font-size:16px}
+.top .ctr{text-align:center}
+.top .ctr b{font-size:15px;color:var(--ink);font-weight:700}
+.top .ctr small{display:block;font-size:10.5px;color:var(--muted);margin-top:1px}
+
+/* 記録画面 */
+.seg{display:flex;background:var(--subtle);border-radius:999px;padding:4px;gap:4px;margin:16px 16px 0}
+.seg>div{flex:1;display:flex;align-items:center;justify-content:center;gap:8px;padding:10px 0;
+         border-radius:999px;font-size:12px;font-weight:500;color:var(--muted)}
+.seg>div .mi{font-size:18px}
+.seg>div.on{color:#fff;font-weight:700}
+.amt{margin:16px;border:1px solid var(--border);border-radius:18px;background:#fff;padding:8px 16px 12px;
+     box-shadow:0 1px 2px rgba(20,40,60,.06)}
+.amt .r{display:flex;align-items:flex-end;gap:6px;justify-content:flex-end;height:62px}
+.amt .y{font-size:16px;font-weight:600;color:var(--muted);padding-bottom:10px}
+.amt .v{font-size:40px;font-weight:800;letter-spacing:-.02em}
+.amt .h{font-size:10.5px;text-align:right;color:var(--muted);margin-top:2px}
+.lbl{font-size:11px;color:var(--muted);margin:0 16px 8px}
+.fld{margin:0 16px 12px;border:1px solid var(--border);border-radius:12px;background:var(--subtle);
+     display:flex;align-items:center;gap:12px;padding:14px 16px;font-size:13px;color:var(--ink)}
+.fld .mi{font-size:20px;color:var(--accent)}
+.fld .sp{flex:1}
+.grid{display:flex;flex-wrap:wrap;padding:0 8px}
+.grid>div{width:25%;display:flex;flex-direction:column;align-items:center;gap:4px;padding:8px 0}
+.grid .cn{font-size:9.5px;color:var(--muted)}
+.grid .sel .cn{color:var(--accent-deep);font-weight:700}
+.grid .sel{background:var(--accent-soft);border-radius:12px}
+.dash{width:44px;height:44px;border-radius:32%;border:1.5px dashed var(--ph);
+      display:flex;align-items:center;justify-content:center;color:var(--accent)}
+.dash .mi{font-size:22px}
+
+/* 貯金リング */
+.goal{display:flex;align-items:center;gap:16px}
+.ring{width:88px;height:88px;position:relative;flex:none}
+.ring .ct{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center}
+.ring .p{font-size:19px;font-weight:800;color:var(--ink)}
+.ring .s{font-size:9px;color:var(--muted)}
+.goal .info{flex:1;display:flex;flex-direction:column;gap:3px}
+.goal .nm{font-size:12.5px;font-weight:700;color:var(--ink)}
+.goal .big{font-size:20px;font-weight:800;color:var(--ink)}
+.goal .sub{font-size:10.5px;color:var(--muted)}
+.goal .ok{font-size:10.5px;color:var(--accent)}
+
+/* レポート */
+.donut{width:180px;height:180px;position:relative;margin:0 auto}
+.donut .hole{position:absolute;inset:26px;border-radius:50%;background:#fff;
+             display:flex;flex-direction:column;align-items:center;justify-content:center}
+.donut .l{font-size:10px;color:var(--muted)}
+.donut .v{font-size:21px;font-weight:800;color:var(--ink)}
+.lg{display:flex;align-items:center;gap:10px;margin-top:9px}
+.lg .dot{width:9px;height:9px;border-radius:3px;flex:none}
+.lg .nm{width:62px;font-size:11.5px;color:var(--body)}
+.lg .tr{flex:1}
+.lg .am{width:72px;text-align:right;font-size:11.5px;font-weight:700;color:var(--ink)}
+.bars{display:flex;align-items:flex-end;gap:10px;height:120px}
+.bars .c{flex:1;display:flex;flex-direction:column;align-items:center;height:100%}
+.bars .st{flex:1;display:flex;align-items:flex-end;justify-content:center;gap:2px}
+.bars .st i{width:6px;border-radius:3px 3px 0 0;display:block}
+.bars .mo{font-size:9px;color:var(--muted);margin-top:4px}
+</style>
+</head>
+<body>
+
+<div class="guide">
+  <b>書き出し方</b>：Chrome で開く → F12 → 各 <code>.shot</code> 要素を右クリック →
+  「Capture node screenshot」→ 1290×2796 の PNG が保存されます（ブラウザの拡大率は 100% にしてください）。
+</div>
+
+<!-- ============ 1. ホーム ============ -->
+<div class="shot" style="background:linear-gradient(165deg,#3BA6E4,#0E6FAF)">
+  <div class="cap"><h2>支出も貯金も、<br>ひと目でわかる</h2>
+    <p>今月いくら使ったかが、開いた瞬間に。</p></div>
+  <div class="dev"><div class="scr">
+    <div class="hdr">
+      <div class="hdr-top"><div class="chip mi">chevron_left</div>
+        <div class="hdr-month">2026年8月</div><div class="chip mi">chevron_right</div></div>
+      <div class="hdr-cap">全体の支出</div>
+      <div class="hero"><div class="v num">¥182,400</div><div class="d">前月比 −6.4%</div></div>
+      <div class="hdr-sub">うち貯金 ¥30,000</div>
+      <div class="bar"><i style="width:83%"></i></div>
+      <div class="hdr-foot"><span class="num">予算 ¥220,000・83%</span><span class="num">残り ¥37,600</span></div>
+    </div>
+    <div class="body">
+      <div class="card">
+        <div class="ch"><h3>カテゴリ別の予算</h3><span class="lk">予算 ›</span></div>
+        <div class="cb">
+          <div class="bg-row"><div class="bg-h"><span class="tile t22" style="background:#3E8FD6"><span class="mi">restaurant</span></span>
+            <span class="nm">食費</span><span class="am num">¥42,800</span><span class="pc num" style="color:var(--warning)">86%</span></div>
+            <div class="tr"><i style="width:86%;background:var(--warning)"></i></div>
+            <div class="bg-f"><span class="l num">予算 ¥50,000</span><span class="num" style="color:var(--warning)">残り ¥7,200</span></div></div>
+          <div class="bg-row"><div class="bg-h"><span class="tile t22" style="background:#2FA3B8"><span class="mi">shopping_cart</span></span>
+            <span class="nm">日用品</span><span class="am num">¥12,300</span><span class="pc num" style="color:var(--income)">62%</span></div>
+            <div class="tr"><i style="width:62%;background:var(--income)"></i></div>
+            <div class="bg-f"><span class="l num">予算 ¥20,000</span><span class="num" style="color:var(--income)">残り ¥7,700</span></div></div>
+          <div class="bg-row"><div class="bg-h"><span class="tile t22" style="background:#5B7BE0"><span class="mi">train</span></span>
+            <span class="nm">交通</span><span class="am num">¥9,640</span><span class="pc num" style="color:var(--income)">64%</span></div>
+            <div class="tr"><i style="width:64%;background:var(--income)"></i></div>
+            <div class="bg-f"><span class="l num">予算 ¥15,000</span><span class="num" style="color:var(--income)">残り ¥5,360</span></div></div>
+        </div>
+      </div>
+      <div class="card"><div class="cb" style="padding-top:16px">
+        <div class="bal"><div class="l">収支</div><div class="v num" style="color:var(--income)">+¥68,600</div></div>
+        <div class="sm">
+          <div class="c"><div class="l"><span class="mi" style="color:var(--income)">south</span>収入</div>
+            <div class="v num" style="color:var(--income)">¥251,000</div></div>
+          <div class="sep"></div>
+          <div class="c"><div class="l"><span class="mi" style="color:var(--expense)">north</span>支出</div>
+            <div class="v num" style="color:var(--expense)">¥152,400</div></div>
+          <div class="sep"></div>
+          <div class="c"><div class="l"><span class="mi" style="color:var(--savings)">savings</span>貯金</div>
+            <div class="v num" style="color:var(--savings)">¥30,000</div></div>
+        </div>
+      </div></div>
+      <div class="card">
+        <div class="ch"><h3>最近の記録</h3><span class="lk">すべて見る ›</span></div>
+        <div class="cb flush">
+          <div class="tx"><span class="tile t34" style="background:#3E8FD6"><span class="mi">restaurant</span></span>
+            <div class="m"><div class="t1">スーパー</div><div class="t2">食費・2026-08-30</div></div>
+            <div class="a num" style="color:var(--expense)">−¥4,820</div></div>
+          <div class="dv"></div>
+          <div class="tx"><span class="tile t34" style="background:#5B7BE0"><span class="mi">train</span></span>
+            <div class="m"><div class="t1">JR 定期外</div><div class="t2">交通・2026-08-30</div></div>
+            <div class="a num" style="color:var(--expense)">−¥640</div></div>
+          <div class="dv"></div>
+          <div class="tx"><span class="tile t34" style="background:#2F7FC4"><span class="mi">savings</span></span>
+            <div class="m"><div class="t1">沖縄旅行の積立</div><div class="t2">貯金・沖縄旅行・2026-08-25</div></div>
+            <div class="a num" style="color:var(--savings)">¥20,000</div></div>
+          <div class="dv"></div>
+          <div class="tx"><span class="tile t34" style="background:#9B6FD8"><span class="mi">home</span></span>
+            <div class="m"><div class="t1">家賃</div><div class="t2">住居・2026-08-25</div></div>
+            <div class="a num" style="color:var(--expense)">−¥98,000</div></div>
+        </div>
+      </div>
+    </div>
+    <div class="tab">
+      <div class="i on"><span class="mi">home</span><span class="lb">ホーム</span></div>
+      <div class="i"><span class="mi">format_list_bulleted</span><span class="lb">履歴</span></div>
+      <div class="mid"><div class="fab"><span class="mi">add</span></div></div>
+      <div class="i"><span class="mi">account_balance_wallet</span><span class="lb">予算</span></div>
+      <div class="i"><span class="mi">settings</span><span class="lb">設定</span></div>
+    </div>
+  </div></div>
+</div>
+
+<!-- ============ 2. 記録 ============ -->
+<div class="shot" style="background:linear-gradient(165deg,#5AB6EC,#1B90D6)">
+  <div class="cap"><h2>記録は、<br>数タップで終わる</h2>
+    <p>日付は最初から今日。カテゴリはその場で追加。</p></div>
+  <div class="dev"><div class="scr">
+    <div style="background:#fff;padding:58px 8px 8px;display:flex;align-items:center;gap:4px;border-bottom:1px solid var(--border)">
+      <span class="mi" style="font-size:22px;color:var(--sub);padding:8px">close</span>
+      <b style="font-size:15px;color:var(--ink)">記録する</b>
+    </div>
+    <div class="seg">
+      <div class="on" style="background:var(--expense)"><span class="mi">north</span>支出</div>
+      <div><span class="mi">south</span>収入</div>
+      <div><span class="mi">savings</span>貯金</div>
+    </div>
+    <div class="amt">
+      <div class="r"><span class="y num">¥</span><span class="v num" style="color:var(--expense)">4,820</span></div>
+      <div class="h">支出 ¥4,820</div>
+    </div>
+    <div class="lbl">日付</div>
+    <div class="fld"><span class="mi">calendar_month</span><span class="sp">2026年8月30日(日)</span>
+      <span class="mi" style="color:var(--muted)">expand_more</span></div>
+    <div class="lbl">カテゴリ</div>
+    <div class="grid">
+      <div class="sel"><span class="tile t44" style="background:#3E8FD6"><span class="mi">restaurant</span></span><span class="cn">食費</span></div>
+      <div><span class="tile t44" style="background:#2FA3B8"><span class="mi">shopping_cart</span></span><span class="cn">日用品</span></div>
+      <div><span class="tile t44" style="background:#9B6FD8"><span class="mi">home</span></span><span class="cn">住居</span></div>
+      <div><span class="tile t44" style="background:#2FA37B"><span class="mi">bolt</span></span><span class="cn">水道光熱</span></div>
+      <div><span class="tile t44" style="background:#D9A03F"><span class="mi">smartphone</span></span><span class="cn">通信</span></div>
+      <div><span class="tile t44" style="background:#5B7BE0"><span class="mi">train</span></span><span class="cn">交通</span></div>
+      <div><span class="tile t44" style="background:#2F92C4"><span class="mi">medical_services</span></span><span class="cn">医療</span></div>
+      <div><span class="tile t44" style="background:#D065A0"><span class="mi">checkroom</span></span><span class="cn">衣服・美容</span></div>
+      <div><span class="tile t44" style="background:#8A6FD8"><span class="mi">movie</span></span><span class="cn">趣味・娯楽</span></div>
+      <div><span class="tile t44" style="background:#D9603F"><span class="mi">celebration</span></span><span class="cn">交際費</span></div>
+      <div><span class="tile t44" style="background:#7C8A99"><span class="mi">category</span></span><span class="cn">その他</span></div>
+      <div><span class="dash"><span class="mi">add</span></span><span class="cn">追加</span></div>
+    </div>
+    <div style="margin:16px 16px 0;border:1px solid var(--border);border-radius:12px;background:#fff;
+                padding:14px 16px;font-size:12.5px;color:var(--ph)">メモ（任意）</div>
+    <div style="margin:16px;background:var(--accent);color:#fff;border-radius:12px;text-align:center;
+                padding:14px;font-size:14px;font-weight:700">保存</div>
+  </div></div>
+</div>
+
+<!-- ============ 3. 予算 ============ -->
+<div class="shot" style="background:linear-gradient(165deg,#2FA37B,#0E6FAF)">
+  <div class="cap"><h2>使いすぎる前に、<br>気づける</h2>
+    <p>毎月の予算も、今月だけの上書きも。</p></div>
+  <div class="dev"><div class="scr">
+    <div class="top"><div class="nav mi">chevron_left</div>
+      <div class="ctr"><b>2026年8月</b><small>毎月の予算と今月だけの上書き</small></div>
+      <div class="nav mi">chevron_right</div></div>
+    <div style="display:flex;gap:8px;padding:12px 16px 8px">
+      <div style="flex:1;text-align:center;padding:9px;border-radius:999px;background:var(--accent);color:#fff;font-size:11.5px;font-weight:700">毎月の予算</div>
+      <div style="flex:1;text-align:center;padding:9px;border-radius:999px;border:1px solid var(--border);color:var(--muted);font-size:11.5px">毎年の予算</div>
+    </div>
+    <div class="card">
+      <div class="ch"><div><h3>全体予算</h3><small style="font-size:10.5px;color:var(--muted)">2026年8月の支出合計に対する上限</small></div></div>
+      <div class="cb"><div class="bg-row"><div class="bg-h">
+        <span class="tile t22" style="background:var(--accent)"><span class="mi">account_balance_wallet</span></span>
+        <span class="nm">既定（毎月）</span><span class="am num">¥182,400</span><span class="pc num" style="color:var(--warning)">83%</span></div>
+        <div class="tr"><i style="width:83%;background:var(--warning)"></i></div>
+        <div class="bg-f"><span class="l num">予算 ¥220,000</span><span class="num" style="color:var(--warning)">残り ¥37,600</span></div></div></div>
+    </div>
+    <div class="card">
+      <div class="ch"><div><h3>カテゴリ別予算</h3><small style="font-size:10.5px;color:var(--muted)">タップして金額を設定</small></div></div>
+      <div class="cb">
+        <div class="bg-row"><div class="bg-h"><span class="tile t22" style="background:#D9603F"><span class="mi">celebration</span></span>
+          <span class="nm">交際費（今回のみ）</span><span class="am num">¥18,200</span><span class="pc num" style="color:var(--expense)">121%</span></div>
+          <div class="tr"><i style="width:100%;background:var(--expense)"></i></div>
+          <div class="bg-f"><span class="l num">予算 ¥15,000</span><span class="num" style="color:var(--expense)">¥3,200 超過</span></div></div>
+        <div class="bg-row"><div class="bg-h"><span class="tile t22" style="background:#3E8FD6"><span class="mi">restaurant</span></span>
+          <span class="nm">食費</span><span class="am num">¥42,800</span><span class="pc num" style="color:var(--warning)">86%</span></div>
+          <div class="tr"><i style="width:86%;background:var(--warning)"></i></div>
+          <div class="bg-f"><span class="l num">予算 ¥50,000</span><span class="num" style="color:var(--warning)">残り ¥7,200</span></div></div>
+        <div class="bg-row"><div class="bg-h"><span class="tile t22" style="background:#5B7BE0"><span class="mi">train</span></span>
+          <span class="nm">交通</span><span class="am num">¥9,640</span><span class="pc num" style="color:var(--income)">64%</span></div>
+          <div class="tr"><i style="width:64%;background:var(--income)"></i></div>
+          <div class="bg-f"><span class="l num">予算 ¥15,000</span><span class="num" style="color:var(--income)">残り ¥5,360</span></div></div>
+        <div class="bg-row"><div class="bg-h"><span class="tile t22" style="background:#2FA37B"><span class="mi">bolt</span></span>
+          <span class="nm">水道光熱</span><span class="am num">¥13,150</span><span class="pc num" style="color:var(--income)">66%</span></div>
+          <div class="tr"><i style="width:66%;background:var(--income)"></i></div>
+          <div class="bg-f"><span class="l num">予算 ¥20,000</span><span class="num" style="color:var(--income)">残り ¥6,850</span></div></div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="ch"><div><h3>予算未設定の支出</h3><small style="font-size:10.5px;color:var(--muted)">合計 ¥32,470</small></div></div>
+      <div class="cb">
+        <div style="display:flex;align-items:center;gap:10px;padding:6px 0">
+          <span class="tile t22" style="background:#2F7FC4"><span class="mi">savings</span></span>
+          <span style="flex:1;font-size:11.5px;color:var(--body)">貯金</span>
+          <span class="num" style="font-size:11.5px;color:var(--ink)">¥30,000</span></div>
+        <div style="display:flex;align-items:center;gap:10px;padding:6px 0">
+          <span class="tile t22" style="background:#7C8A99"><span class="mi">category</span></span>
+          <span style="flex:1;font-size:11.5px;color:var(--body)">その他</span>
+          <span class="num" style="font-size:11.5px;color:var(--ink)">¥2,470</span></div>
+      </div>
+    </div>
+    <div class="tab">
+      <div class="i"><span class="mi">home</span><span class="lb">ホーム</span></div>
+      <div class="i"><span class="mi">format_list_bulleted</span><span class="lb">履歴</span></div>
+      <div class="mid"><div class="fab"><span class="mi">add</span></div></div>
+      <div class="i on"><span class="mi">account_balance_wallet</span><span class="lb">予算</span></div>
+      <div class="i"><span class="mi">settings</span><span class="lb">設定</span></div>
+    </div>
+  </div></div>
+</div>
+
+<!-- ============ 4. 固定費 ============ -->
+<div class="shot" style="background:linear-gradient(165deg,#7C8FE0,#0E6FAF)">
+  <div class="cap"><h2>固定費は、<br>登録すれば自動</h2>
+    <p>家賃もサブスクも、期日が来たら記録されます。</p></div>
+  <div class="dev"><div class="scr">
+    <div style="background:#fff;padding:58px 20px 12px;border-bottom:1px solid var(--border)">
+      <b style="font-size:15px;color:var(--ink)">固定費・定期収入</b></div>
+    <div style="padding-top:14px">
+      <div class="card"><div class="cb" style="padding-top:16px;display:flex">
+        <div style="flex:1;text-align:center"><div style="font-size:10.5px;color:var(--muted)">固定費（月換算）</div>
+          <div class="num" style="font-size:15px;font-weight:700;color:var(--ink);margin-top:2px">¥118,318</div></div>
+        <div style="flex:1;text-align:center"><div style="font-size:10.5px;color:var(--muted)">定期収入（月換算）</div>
+          <div class="num" style="font-size:15px;font-weight:700;color:var(--ink);margin-top:2px">¥251,000</div></div>
+      </div></div>
+      <div class="card">
+        <div class="ch"><h3>固定費</h3></div>
+        <div class="cb flush">
+          <div class="tx"><span class="tile t34" style="background:#9B6FD8"><span class="mi">home</span></span>
+            <div class="m"><div class="t1">家賃</div><div class="t2">毎月 25日 · 次回 8月25日</div></div>
+            <div class="a num" style="color:var(--expense)">¥98,000</div></div>
+          <div class="dv"></div>
+          <div class="tx"><span class="tile t34" style="background:#D9A03F"><span class="mi">smartphone</span></span>
+            <div class="m"><div class="t1">携帯料金</div><div class="t2">毎月 26日 · 次回 8月26日</div></div>
+            <div class="a num" style="color:var(--expense)">¥4,378</div></div>
+          <div class="dv"></div>
+          <div class="tx"><span class="tile t34" style="background:#2FA37B"><span class="mi">bolt</span></span>
+            <div class="m"><div class="t1">電気代</div><div class="t2">毎月 22日 · 次回 9月22日（要確認）</div></div>
+            <div class="a num" style="color:var(--expense)">¥8,940</div></div>
+          <div class="dv"></div>
+          <div class="tx"><span class="tile t34" style="background:#2F92C4"><span class="mi">subscriptions</span></span>
+            <div class="m"><div class="t1">サブスク 3件</div><div class="t2">毎月 8日 · 次回 9月8日</div></div>
+            <div class="a num" style="color:var(--expense)">¥2,470</div></div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="ch"><h3>定期収入</h3></div>
+        <div class="cb flush">
+          <div class="tx"><span class="tile t34" style="background:#2FA37B"><span class="mi">payments</span></span>
+            <div class="m"><div class="t1">給与</div><div class="t2">毎月 25日 · 次回 8月25日</div></div>
+            <div class="a num" style="color:var(--income)">¥251,000</div></div>
+          <div class="dv"></div>
+          <div class="tx"><span class="tile t34" style="background:#2F92C4"><span class="mi">savings</span></span>
+            <div class="m"><div class="t1">沖縄旅行の積立</div><div class="t2">毎月 25日 · 次回 8月25日</div></div>
+            <div class="a num" style="color:var(--savings)">¥20,000</div></div>
+        </div>
+      </div>
+      <div style="padding:0 24px;font-size:10.5px;color:var(--faint);line-height:1.7">
+        年払い・週払いの項目は、月換算した概算で合計しています。
+      </div>
+    </div>
+    <div style="position:absolute;right:16px;bottom:16px;width:56px;height:56px;border-radius:16px;
+                background:var(--accent);color:#fff;display:flex;align-items:center;justify-content:center;
+                box-shadow:0 6px 16px rgba(14,111,175,.32)"><span class="mi" style="font-size:26px">add</span></div>
+  </div></div>
+</div>
+
+<!-- ============ 5. 貯金 ============ -->
+<div class="shot" style="background:linear-gradient(165deg,#2FA37B,#128FA3)">
+  <div class="cap"><h2>目標に向けて、<br>積み立てる</h2>
+    <p>いつまでに、いくら。毎月いくら積めば届くかも。</p></div>
+  <div class="dev"><div class="scr">
+    <div style="background:#fff;padding:58px 20px 12px;border-bottom:1px solid var(--border)">
+      <b style="font-size:15px;color:var(--ink)">貯金の目標</b></div>
+    <div style="padding-top:14px">
+      <div class="card"><div class="cb" style="padding-top:16px"><div class="goal">
+        <div class="ring" style="background:conic-gradient(#2FA37B 0% 62%,var(--track) 62% 100%);border-radius:50%">
+          <div style="position:absolute;inset:9px;background:#fff;border-radius:50%"></div>
+          <div class="ct"><div class="p num">62%</div><div class="s">達成</div></div></div>
+        <div class="info"><div class="nm">沖縄旅行</div><div class="big num">¥186,000</div>
+          <div class="sub num">目標 ¥300,000・あと ¥114,000</div>
+          <div class="sub num">目標日 2027-03-31・月 ¥16,286 必要</div>
+          <div class="ok">この調子なら間に合います</div></div>
+      </div></div></div>
+      <div class="card"><div class="cb" style="padding-top:16px"><div class="goal">
+        <div class="ring" style="background:conic-gradient(#5B7BE0 0% 28%,var(--track) 28% 100%);border-radius:50%">
+          <div style="position:absolute;inset:9px;background:#fff;border-radius:50%"></div>
+          <div class="ct"><div class="p num">28%</div><div class="s">達成</div></div></div>
+        <div class="info"><div class="nm">引っ越し費用</div><div class="big num">¥140,000</div>
+          <div class="sub num">目標 ¥500,000・あと ¥360,000</div>
+          <div class="sub num">目標日 2027-09-30・月 ¥27,693 必要</div>
+          <div class="ok">この調子なら間に合います</div></div>
+      </div></div></div>
+      <div class="card"><div class="cb" style="padding-top:16px"><div class="goal">
+        <div class="ring" style="background:conic-gradient(#D9A03F 0% 91%,var(--track) 91% 100%);border-radius:50%">
+          <div style="position:absolute;inset:9px;background:#fff;border-radius:50%"></div>
+          <div class="ct"><div class="p num">91%</div><div class="s">達成</div></div></div>
+        <div class="info"><div class="nm">新しいPC</div><div class="big num">¥182,000</div>
+          <div class="sub num">目標 ¥200,000・あと ¥18,000</div>
+          <div class="sub num">目標日 2026-12-31・月 ¥4,500 必要</div>
+          <div class="ok">この調子なら間に合います</div></div>
+      </div></div></div>
+      <div class="card"><div class="cb" style="padding-top:16px;display:flex;align-items:center;gap:12px">
+        <span class="tile t34" style="background:var(--savings)"><span class="mi">savings</span></span>
+        <div style="flex:1"><div style="font-size:12.5px;color:var(--ink)">今月の積立</div>
+          <div style="font-size:10.5px;color:var(--muted);margin-top:2px">3件・全体の支出に含まれます</div></div>
+        <div class="num" style="font-size:13.5px;font-weight:700;color:var(--savings)">¥30,000</div>
+      </div></div>
+    </div>
+    <div style="position:absolute;right:16px;bottom:16px;width:56px;height:56px;border-radius:16px;
+                background:var(--accent);color:#fff;display:flex;align-items:center;justify-content:center;
+                box-shadow:0 6px 16px rgba(14,111,175,.32)"><span class="mi" style="font-size:26px">add</span></div>
+  </div></div>
+</div>
+
+<!-- ============ 6. レポート ============ -->
+<div class="shot" style="background:linear-gradient(165deg,#8E6FD8,#0E6FAF)">
+  <div class="cap"><h2>何に使ったか、<br>あとから見える</h2>
+    <p>カテゴリの内訳も、月ごとの推移も。</p></div>
+  <div class="dev"><div class="scr">
+    <div style="background:#fff;padding:58px 20px 12px;border-bottom:1px solid var(--border)">
+      <b style="font-size:15px;color:var(--ink)">年間レポート</b></div>
+    <div style="padding-top:14px">
+      <div class="card"><div class="cb" style="padding-top:16px">
+        <div class="donut" style="background:conic-gradient(#3E8FD6 0% 31%,#9B6FD8 31% 48%,#2FA37B 48% 61%,#5B7BE0 61% 72%,#D9A03F 72% 82%,#2F7FC4 82% 100%)">
+          <div class="hole"><div class="l">全体の支出</div><div class="v num">¥1,842,600</div></div></div>
+        <div style="margin-top:16px">
+          <div class="lg"><span class="dot" style="background:#3E8FD6"></span><span class="nm">食費</span>
+            <span class="tr"><i style="width:100%;background:#3E8FD6"></i></span><span class="am num">¥571,200</span></div>
+          <div class="lg"><span class="dot" style="background:#9B6FD8"></span><span class="nm">住居</span>
+            <span class="tr"><i style="width:55%;background:#9B6FD8"></i></span><span class="am num">¥313,000</span></div>
+          <div class="lg"><span class="dot" style="background:#2FA37B"></span><span class="nm">水道光熱</span>
+            <span class="tr"><i style="width:42%;background:#2FA37B"></i></span><span class="am num">¥239,500</span></div>
+          <div class="lg"><span class="dot" style="background:#5B7BE0"></span><span class="nm">交通</span>
+            <span class="tr"><i style="width:36%;background:#5B7BE0"></i></span><span class="am num">¥202,600</span></div>
+          <div class="lg"><span class="dot" style="background:#D9A03F"></span><span class="nm">通信</span>
+            <span class="tr"><i style="width:31%;background:#D9A03F"></i></span><span class="am num">¥176,300</span></div>
+          <div class="lg"><span class="dot" style="background:#2F7FC4"></span><span class="nm">貯金</span>
+            <span class="tr"><i style="width:60%;background:#2F7FC4"></i></span><span class="am num">¥340,000</span></div>
+        </div>
+      </div></div>
+      <div class="card">
+        <div class="ch"><h3>月ごとの収支</h3></div>
+        <div class="cb"><div class="bars">
+          <div class="c"><div class="st"><i style="height:62%;background:var(--income)"></i><i style="height:48%;background:var(--expense)"></i></div><div class="mo">1</div></div>
+          <div class="c"><div class="st"><i style="height:62%;background:var(--income)"></i><i style="height:41%;background:var(--expense)"></i></div><div class="mo">2</div></div>
+          <div class="c"><div class="st"><i style="height:62%;background:var(--income)"></i><i style="height:58%;background:var(--expense)"></i></div><div class="mo">3</div></div>
+          <div class="c"><div class="st"><i style="height:62%;background:var(--income)"></i><i style="height:44%;background:var(--expense)"></i></div><div class="mo">4</div></div>
+          <div class="c"><div class="st"><i style="height:62%;background:var(--income)"></i><i style="height:52%;background:var(--expense)"></i></div><div class="mo">5</div></div>
+          <div class="c"><div class="st"><i style="height:88%;background:var(--income)"></i><i style="height:49%;background:var(--expense)"></i></div><div class="mo">6</div></div>
+          <div class="c"><div class="st"><i style="height:62%;background:var(--income)"></i><i style="height:66%;background:var(--expense)"></i></div><div class="mo">7</div></div>
+          <div class="c"><div class="st"><i style="height:62%;background:var(--income)"></i><i style="height:45%;background:var(--expense)"></i></div><div class="mo">8</div></div>
+          <div class="c"><div class="st"><i style="height:0%"></i></div><div class="mo">9</div></div>
+          <div class="c"><div class="st"><i style="height:0%"></i></div><div class="mo">10</div></div>
+          <div class="c"><div class="st"><i style="height:0%"></i></div><div class="mo">11</div></div>
+          <div class="c"><div class="st"><i style="height:0%"></i></div><div class="mo">12</div></div>
+        </div>
+        <div style="display:flex;justify-content:center;gap:6px;align-items:center;margin-top:12px;font-size:9.5px;color:var(--body)">
+          <span class="dot" style="width:9px;height:9px;border-radius:3px;background:var(--income);display:inline-block"></span>収入
+          <span class="dot" style="width:9px;height:9px;border-radius:3px;background:var(--expense);display:inline-block;margin-left:8px"></span>支出（貯金を含む）
+        </div></div>
+      </div>
+      <div class="card">
+        <div class="ch"><h3>年間予算の消化</h3></div>
+        <div class="cb">
+          <div class="bg-row"><div class="bg-h">
+            <span class="tile t22" style="background:var(--accent)"><span class="mi">account_balance_wallet</span></span>
+            <span class="nm">全体</span><span class="am num">¥1,842,600</span><span class="pc num" style="color:var(--income)">70%</span></div>
+            <div class="tr"><i style="width:70%;background:var(--income)"></i></div>
+            <div class="bg-f"><span class="l num">予算 ¥2,640,000</span><span class="num" style="color:var(--income)">残り ¥797,400</span></div></div>
+          <div class="bg-row"><div class="bg-h"><span class="tile t22" style="background:#3E8FD6"><span class="mi">restaurant</span></span>
+            <span class="nm">食費</span><span class="am num">¥571,200</span><span class="pc num" style="color:var(--warning)">95%</span></div>
+            <div class="tr"><i style="width:95%;background:var(--warning)"></i></div>
+            <div class="bg-f"><span class="l num">予算 ¥600,000</span><span class="num" style="color:var(--warning)">残り ¥28,800</span></div></div>
+        </div>
+      </div>
+    </div>
+  </div></div>
+</div>
+
+</body>
+</html>
