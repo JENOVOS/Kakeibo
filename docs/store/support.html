@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>家計簿アプリ サポート</title>
+<style>
+  :root{
+    --ink:#17232E; --sub:#5A6874; --muted:#7B8896;
+    --bg:#F2F6FA; --card:#FFFFFF; --line:#E4EBF1; --accent:#0E6FAF;
+  }
+  *{box-sizing:border-box}
+  body{
+    margin:0;padding:32px 20px 64px;background:var(--bg);color:var(--ink);
+    font-family:system-ui,-apple-system,"Hiragino Sans","Noto Sans JP",sans-serif;
+    line-height:1.8;-webkit-font-smoothing:antialiased;
+  }
+  main{max-width:720px;margin:0 auto}
+  h1{font-size:24px;margin:0 0 4px}
+  .lead{color:var(--muted);margin:0 0 28px}
+  section{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:20px 22px;margin-bottom:16px}
+  h2{font-size:16px;margin:0 0 12px}
+  h3{font-size:14px;margin:20px 0 6px}
+  h3:first-of-type{margin-top:0}
+  p{margin:0 0 12px}
+  p:last-child{margin-bottom:0}
+  ul{margin:0 0 12px;padding-left:1.2em}
+  a{color:var(--accent)}
+  .contact{font-size:15px}
+  footer{color:var(--muted);font-size:13px;text-align:center;margin-top:28px}
+</style>
+</head>
+<body>
+<main>
+  <h1>家計簿アプリ サポート</h1>
+  <p class="lead">ご利用ありがとうございます。よくあるご質問と問い合わせ先です。</p>
+
+  <section>
+    <h2>お問い合わせ</h2>
+    <p class="contact">
+      ご質問・不具合のご報告は
+      <!-- TODO: 実在するメールアドレスに差し替える -->
+      <a href="mailto:support@example.com">support@example.com</a>
+      までご連絡ください。
+    </p>
+    <p>
+      不具合のご報告では、次を教えていただけると原因を特定しやすくなります。
+    </p>
+    <ul>
+      <li>お使いの端末（例: iPhone 15）と OS のバージョン</li>
+      <li>アプリのバージョン（設定画面の最下部に表示されます）</li>
+      <li>どの操作をしたときに起きたか</li>
+    </ul>
+  </section>
+
+  <section>
+    <h2>よくあるご質問</h2>
+
+    <h3>データはどこに保存されますか</h3>
+    <p>
+      記録した家計簿のデータ（取引・予算・固定費・貯金）は、お使いの端末の中だけに保存されます。
+      当方のサーバーへ送信することはありません。詳しくは
+      <a href="./privacy.html">プライバシーポリシー</a> をご覧ください。
+    </p>
+
+    <h3>機種変更するときはどうすればよいですか</h3>
+    <p>
+      設定画面の「バックアップを書き出す」でファイルを保存し、
+      新しい端末で「バックアップから復元する」を実行してください。
+      保存先はクラウドストレージなど、新しい端末からも開ける場所をお選びください。
+    </p>
+    <p>
+      データは端末内にのみ保存されるため、バックアップを取らずに端末を初期化・紛失すると
+      復元できません。定期的な書き出しをおすすめします。
+    </p>
+
+    <h3>購入したのに機能が使えません</h3>
+    <p>
+      設定画面から購入の案内を開き、「購入を復元」をお試しください。
+      購入時と同じ Apple アカウントでサインインしている必要があります。
+    </p>
+
+    <h3>広告を消したい</h3>
+    <p>
+      買い切りのご購入で、広告の非表示と貯金機能の解放がまとめて適用されます。
+      月額課金ではなく、一度のお支払いです。
+    </p>
+
+    <h3>固定費が自動で記録されません</h3>
+    <p>
+      固定費は「自動で記録する」と「確認してから記録する」を選べます。
+      後者を選んでいる場合、期日が来るとホーム画面に「確認待ち」として表示されるので、
+      金額を確認して「確定」を押してください。
+      また、無効（一時停止）にしている固定費は記録されません。
+    </p>
+
+    <h3>貯金は支出に含まれますか</h3>
+    <p>
+      含まれます。積み立てた金額は「全体の支出」と「収支」の両方に反映されます。
+      手元から出ていったお金として扱ったほうが、使えるお金を正しく把握できるためです。
+      ただしカテゴリ別の予算には含まれません。
+    </p>
+
+    <h3>データをすべて消したい</h3>
+    <p>
+      設定画面の「すべてのデータを削除」から消去できます。
+      この操作は取り消せませんので、必要な場合は先にバックアップをお取りください。
+    </p>
+  </section>
+
+  <footer>
+    <p><a href="./privacy.html">プライバシーポリシー</a></p>
+  </footer>
+</main>
+</body>
+</html>

@@ -8,6 +8,7 @@
 | [04-development.md](./04-development.md) | 開発環境、コマンド、テスト、注意点 |
 | [05-release.md](./05-release.md) | ストア公開の手順と必要なもの |
 | [06-monetization.md](./06-monetization.md) | 買い切り課金と広告。ストア登録と審査対応 |
+| [07-store-listing.md](./07-store-listing.md) | ストア掲載文（概要・キーワード）とサポート/プライバシーページ |
 
 ## 3行での要約
 
@@ -27,4 +28,5 @@ UI モックの原本は `docs/家計簿アプリのUIモック-handoff/`（Clau
 | 機能の追加・削除 | 01-requirements.md |
 | `app.json` のストア設定 | 05-release.md |
 | 課金・広告 | 06-monetization.md |
+| 機能の見え方・文言 | 07-store-listing.md（掲載文が実態とずれないよう） |
 | 配色・書体・余白（`src/theme`） | 02-tech-stack.md |
