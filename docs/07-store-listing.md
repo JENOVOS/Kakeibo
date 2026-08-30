@@ -110,23 +110,32 @@ App Store Connect は**スロットごとに受け付けるサイズが決まっ
 | 5 | 貯金 | 目標に向けて、積み立てる |
 | 6 | レポート | 何に使ったか、あとから見える |
 
-### 書き出し方
+### 書き出し（PNG は生成済み）
 
-1. `docs/store/screenshots.html` を Chrome で開く（**拡大率は 100%**）
-2. F12 で DevTools を開く
-3. 各アートボード（`<div class="shot">`）を Elements タブで選び、右クリック →
-   **Capture node screenshot**
-4. 指定サイズちょうどの PNG が保存される
+```bash
+npm run shots
+```
 
-### 注意
+`docs/store/screenshots/` に **18枚（6画面 × 3サイズ）** の PNG が出る。
+**そのままアップロードできる。**
 
-**これは実機のキャプチャではなく、実装の値から起こした再現画面。**
-配色・角丸・余白・書体は `src/theme/index.ts` の実測値をそのまま使っているが、
-ダミーの数字が入っている。
+```
+docs/store/screenshots/
+  6.5inch-1242x2688/   1-home.png … 6-report.png
+  6.7inch-1284x2778/
+  6.9inch-1290x2796/
+```
 
-Apple はスクリーンショットが実際のアプリと一致することを求めるので、
-**開発ビルドで実機を動かせるようになったら、実画面と見比べて差異がないか確認すること。**
-ずれていたらこのファイルを直す（または実機のキャプチャに差し替える）。
+### なぜスクリプトで書き出すのか
+
+DevTools の「Capture node screenshot」は、出力サイズが
+**CSSサイズ × devicePixelRatio × ページ拡大率**になる。
+環境によって 1242px が 1552px などに化け、App Store Connect は
+寸法が1pxでも違うと受け付けない（「寸法が正しくありません」）。
+
+`scripts/export-screenshots.mjs` は端末の Chrome を
+`deviceScaleFactor: 1` で動かし、書き出した PNG のヘッダから
+実寸を読み返して検証する。指定と違えば異常終了する。
 
 ---
 

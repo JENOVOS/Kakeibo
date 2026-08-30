@@ -86,6 +86,7 @@ JS の変更だけならビルドし直さずそのまま反映される。
 | `npm run lint` | 型チェック（`tsc --noEmit`） |
 | `npm run db:generate` | `schema.ts` からマイグレーション生成 |
 | `npm run check:ads` | AdMob のID設定を検査（提出前に必ず） |
+| `npm run shots` | ストア用スクリーンショットを実寸PNGで書き出す |
 | `npx expo export --platform android` | バンドルが通るか確認（実機不要） |
 | `npx expo install --check` | SDK に対して古い/新しい依存を検出 |
 
