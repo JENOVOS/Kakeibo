@@ -188,8 +188,7 @@ Expo SDK 54 以降、通常は `babel.config.js` が不要になった。
 
 同じ理由で `metro.config.js` の `sourceExts.push('sql')` も必須。
 
-### `app.json` のバンドル ID がプレースホルダ
+### バンドル ID は変更しないこと
 
-`com.example.kakeibo` のままではストアに提出できない。
-リリース前に自分のドメインを逆順にしたもの（例: `com.yourname.kakeibo`）へ変更すること。
-**一度ストアに登録すると変更できない。**
+`com.jenovos.kakeibo`。App Store Connect に登録済みのIDと一致させてある。
+**一度ストアに登録すると変更できない**ので、書き換えるとビルドを受け付けなくなる。

@@ -9,6 +9,7 @@
 | [05-release.md](./05-release.md) | ストア公開の手順と必要なもの |
 | [06-monetization.md](./06-monetization.md) | 買い切り課金と広告。ストア登録と審査対応 |
 | [07-store-listing.md](./07-store-listing.md) | ストア掲載文（概要・キーワード）とサポート/プライバシーページ |
+| [08-build-and-submit.md](./08-build-and-submit.md) | ビルドと App Store Connect への提出 |
 
 ## 3行での要約
 

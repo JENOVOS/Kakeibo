@@ -18,7 +18,7 @@
     ],
     "ios": {
       "supportsTablet": true,
-      "bundleIdentifier": "com.example.kakeibo",
+      "bundleIdentifier": "com.jenovos.kakeibo",
       "infoPlist": {
         "CFBundleAllowMixedLocalizations": true,
         "ITSAppUsesNonExemptEncryption": false,
@@ -48,7 +48,7 @@
       }
     },
     "android": {
-      "package": "com.example.kakeibo",
+      "package": "com.jenovos.kakeibo",
       "adaptiveIcon": {
         "backgroundColor": "#F8FAFC",
         "foregroundImage": "./assets/android-icon-foreground.png",
