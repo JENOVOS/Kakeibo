@@ -78,18 +78,48 @@ Android は Play から購入一覧を取得して照合すれば足りる。
 
 ### 2. AdMob を設定する
 
-1. AdMob でアプリを2つ登録（iOS / Android）してアプリIDを取得
-2. `app.json` の `react-native-google-mobile-ads` プラグインの
-   `iosAppId` / `androidAppId` を差し替える
-   （現在は `ca-app-pub-0000...` のプレースホルダ）
-3. バナーの広告ユニットを作り、`.env` に入れる（`.env.example` を複製）
+AdMob では **iOS と Android が別アプリ**として登録される。
+それぞれにアプリIDと広告ユニットIDが発行されるので、最終的に4つのIDが要る。
 
-```
-EXPO_PUBLIC_ADMOB_BANNER_IOS=ca-app-pub-…/…
-EXPO_PUBLIC_ADMOB_BANNER_ANDROID=ca-app-pub-…/…
+IDは2種類あり、**区切り文字だけが違う**。前半（発行元の16桁）は共通なので
+目視では取り違えやすい。
+
+| ID | 形 | 置き場所 |
+|---|---|---|
+| アプリID | `ca-app-pub-<16桁>` **`~`** `<10桁>` | `app.json` のプラグイン設定 `iosAppId` / `androidAppId` |
+| 広告ユニットID | `ca-app-pub-<16桁>` **`/`** `<10桁>` | `app.json` の `extra.admobBannerIos` / `admobBannerAndroid` |
+
+取り違えたときの症状が重い。
+
+- アプリIDが不正 → **iOS は起動直後にクラッシュする**（`GADApplicationIdentifier` の検証に落ちる）
+- ユニットIDが未設定 → 本番なのにテスト広告が出て**収益がゼロになる**
+
+どちらもストアに出してから気づくことになるので、提出前に必ず検査する。
+
+```bash
+npm run check:ads
 ```
 
-未設定のあいだはテスト広告が出る。
+### IDを .env に置かない理由
+
+AdMob のIDは**秘密情報ではない**。アプリのバイナリに埋め込まれ、誰でも取り出せる。
+
+一方 `.env` は gitignore されるため、別の環境でクローンしたときに黙って欠落する。
+その状態でビルドすると、エラーも警告も出ないまま**本番ビルドにテスト広告が載る**。
+バージョン管理下（`app.json`）に置いて、欠けていれば検査で気づけるようにしてある。
+
+### 現在の状態
+
+| 項目 | 値 |
+|---|---|
+| iOS アプリID | 設定済み |
+| iOS バナー | 設定済み |
+| Android アプリID | **Google のテスト用ID**（未登録のため。形式が不正だと起動しないので0埋めは使えない） |
+| Android バナー | 未設定 |
+
+**Android を公開する前に、AdMob で Android アプリを登録して差し替えること。**
+`npm run check:ads` が警告し続ける。
+
 **本番IDのまま自分で広告をタップすると規約違反でアカウントが止まる**ので、
 動作確認はテスト広告のままで行うこと。
 

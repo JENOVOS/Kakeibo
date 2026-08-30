@@ -10,7 +10,8 @@
     "web": "expo start --web",
     "db:generate": "drizzle-kit generate",
     "lint": "tsc --noEmit && tsc --noEmit -p tests",
-    "test": "tsx --test tests/*.test.ts"
+    "test": "tsx --test tests/*.test.ts",
+    "check:ads": "node scripts/check-ads.mjs"
   },
   "dependencies": {
     "@expo-google-fonts/manrope": "^0.4.2",

@@ -83,14 +83,18 @@
       [
         "react-native-google-mobile-ads",
         {
-          "androidAppId": "ca-app-pub-0000000000000000~0000000000",
-          "iosAppId": "ca-app-pub-0000000000000000~0000000000",
+          "androidAppId": "ca-app-pub-3940256099942544~3347511713",
+          "iosAppId": "ca-app-pub-6679521980469914~7448722473",
           "userTrackingUsageDescription": "アプリの利用に合わせた広告を表示するために使用します。許可しなくてもすべての機能を利用できます。"
         }
       ]
     ],
     "experiments": {
       "typedRoutes": false
+    },
+    "extra": {
+      "admobBannerIos": "ca-app-pub-6679521980469914/1297307746",
+      "admobBannerAndroid": ""
     }
   }
 }
