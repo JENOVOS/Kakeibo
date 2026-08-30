@@ -12,7 +12,8 @@
     "lint": "tsc --noEmit && tsc --noEmit -p tests",
     "test": "tsx --test tests/*.test.ts",
     "check:ads": "node scripts/check-ads.mjs",
-    "shots": "node scripts/export-screenshots.mjs"
+    "shots": "node scripts/export-screenshots.mjs",
+    "icons": "node scripts/make-icons.mjs"
   },
   "dependencies": {
     "@expo-google-fonts/manrope": "^0.4.2",

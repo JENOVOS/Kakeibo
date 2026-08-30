@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024" width="1024" height="1024">
+  <!--
+    家計簿アプリのアイコン。
+    アプリのテーマ色（スカイブルー #3BA6E4 → #0E6FAF）のグラデーションに、
+    予算の消化リングと ¥ を重ねている。
+    「お金」と「予算の進捗」というアプリの中心を、文字を使わずに表す。
+    小さく表示されても潰れないよう、要素は2つだけに絞ってある。
+  -->
+  <defs>
+    <linearGradient id="bg" x1="0.15" y1="0" x2="0.85" y2="1">
+      <stop offset="0" stop-color="#3BA6E4"/>
+      <stop offset="1" stop-color="#0E6FAF"/>
+    </linearGradient>
+  </defs>
+
+  <rect width="1024" height="1024" fill="url(#bg)"/>
+
+  <!-- 予算リング（下地） -->
+  <circle cx="512" cy="512" r="366" fill="none"
+          stroke="#FFFFFF" stroke-opacity="0.26" stroke-width="52"/>
+  <!-- 消化ぶん（約72%）。円周 2πr = 2299.6 -->
+  <circle cx="512" cy="512" r="366" fill="none"
+          stroke="#FFFFFF" stroke-width="52" stroke-linecap="round"
+          stroke-dasharray="1656 644" transform="rotate(-90 512 512)"/>
+
+  <!-- ¥ -->
+  <g stroke="#FFFFFF" stroke-linecap="round" stroke-linejoin="round" fill="none">
+    <path d="M 396 356 L 512 508 L 628 356" stroke-width="54"/>
+    <path d="M 512 508 L 512 690" stroke-width="54"/>
+    <path d="M 410 566 L 614 566" stroke-width="44"/>
+    <path d="M 410 634 L 614 634" stroke-width="44"/>
+  </g>
+</svg>

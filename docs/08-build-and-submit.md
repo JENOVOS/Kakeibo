@@ -8,7 +8,7 @@ App Store Connect の「ビルドを選択してください」を解消する�
 | 項目 | 状態 |
 |---|---|
 | Apple Developer Program | **必須**（$99/年）。未加入だとビルドの署名ができない |
-| バンドルID | `com.jenovos.kakeibo`（App Store Connect の登録と一致させてある） |
+| バンドルID | `com.kadosoft.kakeibo`（App Store Connect の登録と一致させてある） |
 | Expo アカウント | 無料。EAS Build の無料枠で足りる |
 | Mac | **不要**。EAS のクラウド Mac がビルドする |
 
@@ -17,6 +17,7 @@ App Store Connect の「ビルドを選択してください」を解消する�
 ```
 expo-doctor        18/18 通過
 アイコン           1024×1024・アルファなし（App Store の要件を満たす）
+iPad               supportsTablet: false（iPad 用スクリーンショットは不要）
 AdMob iOS          アプリID・バナーとも設定済み
 プライバシー       privacyManifests / ITSAppUsesNonExemptEncryption 設定済み
 ```
@@ -48,7 +49,7 @@ npx eas-cli build --platform ios --profile production
 - **Apple アカウント** — Apple Developer Program のもの
 - **証明書とプロビジョニングプロファイル** — 「EAS に任せる」を選ぶ。
   自動生成・管理され、Mac もキーチェーン操作も要らない
-- **バンドルID** — `com.jenovos.kakeibo` が使われる（app.json から読む）
+- **バンドルID** — `com.kadosoft.kakeibo` が使われる（app.json から読む）
 
 ビルドは10〜30分かかる。完了すると `.ipa` の URL が出る。
 
