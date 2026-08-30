@@ -17,7 +17,7 @@
       "**/*"
     ],
     "ios": {
-      "supportsTablet": true,
+      "supportsTablet": false,
       "bundleIdentifier": "com.kadosoft.kakeibo",
       "infoPlist": {
         "CFBundleAllowMixedLocalizations": true,
@@ -58,7 +58,8 @@
       "edgeToEdgeEnabled": true,
       "predictiveBackGestureEnabled": false,
       "permissions": [
-        "android.permission.SCHEDULE_EXACT_ALARM"
+        "android.permission.SCHEDULE_EXACT_ALARM",
+        "com.google.android.gms.permission.AD_ID"
       ],
       "allowBackup": true
     },
@@ -94,7 +95,12 @@
     },
     "extra": {
       "admobBannerIos": "ca-app-pub-6679521980469914/1297307746",
-      "admobBannerAndroid": ""
-    }
+      "admobBannerAndroid": "",
+      "router": {},
+      "eas": {
+        "projectId": "94b57465-4a7a-4d47-a0de-78fc2b98e6ab"
+      }
+    },
+    "owner": "kadoria"
   }
 }
