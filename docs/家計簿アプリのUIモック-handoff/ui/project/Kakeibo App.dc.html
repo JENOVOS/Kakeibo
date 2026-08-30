@@ -1,0 +1,681 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet data-dc-atomics>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&family=Manrope:wght@500;600;700;800&display=swap">
+<style>
+html,body{margin:0;padding:0}
+body{background:#E9EFF5;font-family:'Noto Sans JP',system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+a{color:#0E6FAF;text-decoration:none}
+a:hover{color:#0B5A90}
+input{font-family:inherit}
+input::placeholder{color:#A9B6C2}
+*{box-sizing:border-box}
+@keyframes sheetUp{from{transform:translateY(100%)}to{transform:translateY(0)}}
+@keyframes fadeIn{from{opacity:0}to{opacity:1}}
+@keyframes toastIn{from{opacity:0;transform:translate(-50%,10px)}to{opacity:1;transform:translate(-50%,0)}}
+</style>
+</helmet>
+<div style="min-height:100vh;display:flex;flex-direction:column;align-items:center;gap:16px;padding:34px 0 56px">
+<div style="display:flex;flex-direction:column;gap:4px;align-items:center">
+<div style="font:700 13px 'Noto Sans JP',sans-serif;color:#1D2A35;letter-spacing:.04em">家計簿アプリ ／ UIモック</div>
+<div style="font:400 11px 'Noto Sans JP',sans-serif;color:#7B8896">タブ移動・入力・カレンダー・検索が動きます</div>
+</div>
+<x-import component-from-global-scope="IOSDevice" from="./ios-frame.jsx" hint-size="402px,874px">
+<div style="height:100%;display:flex;flex-direction:column;background:#F2F6FA;position:relative;overflow:hidden">
+
+<sc-if value="{{ isHome }}" hint-placeholder-val="{{ true }}">
+<div style="padding:62px 20px 20px;background:linear-gradient(160deg,var(--accent-lite,#3BA6E4),var(--accent-deep,#0E6FAF));color:#fff;flex:none">
+<div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:14px">
+<div style="display:flex;align-items:center;gap:10px">
+<div onClick="{{ prevMonth }}" style="width:26px;height:26px;border-radius:9px;background:rgba(255,255,255,.16);display:flex;align-items:center;justify-content:center;cursor:pointer;font:600 12px Manrope,sans-serif">‹</div>
+<div style="font:700 14px 'Noto Sans JP',sans-serif;letter-spacing:.02em">{{ monthLabel }}</div>
+<div onClick="{{ nextMonth }}" style="width:26px;height:26px;border-radius:9px;background:rgba(255,255,255,.16);display:flex;align-items:center;justify-content:center;cursor:pointer;font:600 12px Manrope,sans-serif">›</div>
+</div>
+<div style="display:flex;align-items:center;gap:8px">
+<div style="display:flex;align-items:center;gap:6px;padding:5px 10px;border-radius:999px;background:rgba(255,255,255,.16);font:500 10.5px 'Noto Sans JP',sans-serif">
+<div style="width:6px;height:6px;border-radius:50%;background:#8FE3C0"></div>同期済み
+</div>
+<div onClick="{{ openSettings }}" style="width:30px;height:30px;border-radius:10px;background:rgba(255,255,255,.16);display:flex;flex-direction:column;justify-content:center;align-items:center;gap:3px;cursor:pointer;color:#fff" title="設定">
+<div style="width:15px;height:2px;border-radius:2px;background:currentColor;position:relative"><div style="position:absolute;top:-1.5px;left:3px;width:5px;height:5px;border-radius:2px;background:currentColor"></div></div>
+<div style="width:15px;height:2px;border-radius:2px;background:currentColor;position:relative"><div style="position:absolute;top:-1.5px;right:3px;width:5px;height:5px;border-radius:2px;background:currentColor"></div></div>
+<div style="width:15px;height:2px;border-radius:2px;background:currentColor;position:relative"><div style="position:absolute;top:-1.5px;left:6px;width:5px;height:5px;border-radius:2px;background:currentColor"></div></div>
+</div>
+</div>
+</div>
+<div style="font:500 11.5px 'Noto Sans JP',sans-serif;opacity:.85;margin-bottom:2px">今月の支出</div>
+<div style="display:flex;align-items:flex-end;gap:8px">
+<div style="font:800 40px/1 Manrope,sans-serif;letter-spacing:-.02em;font-variant-numeric:tabular-nums">¥{{ spentLabel }}</div>
+<div style="font:600 11.5px 'Noto Sans JP',sans-serif;padding-bottom:5px;opacity:.9">{{ deltaLabel }}</div>
+</div>
+<div style="margin-top:16px;height:8px;border-radius:99px;background:rgba(255,255,255,.22);overflow:hidden">
+<div style="height:100%;border-radius:99px;background:#fff;width:{{ pctWidth }}%"></div>
+</div>
+<div style="display:flex;justify-content:space-between;gap:10px;margin-top:9px;font:500 11px 'Noto Sans JP',sans-serif;opacity:.92">
+<div style="white-space:nowrap">予算 ¥{{ budgetLabel }}・{{ pctLabel }}%</div>
+<div style="white-space:nowrap">残り ¥{{ remainLabel }}</div>
+</div>
+</div>
+</sc-if>
+
+<sc-if value="{{ showTopBar }}" hint-placeholder-val="{{ false }}">
+<div style="padding:58px 20px 12px;background:#fff;border-bottom:1px solid #E4EBF1;flex:none;display:flex;align-items:center;justify-content:space-between">
+<div onClick="{{ prevMonth }}" style="width:30px;height:30px;border-radius:10px;background:#F1F5F9;display:flex;align-items:center;justify-content:center;cursor:pointer;color:#4C5C6B;font:600 13px Manrope,sans-serif">‹</div>
+<div style="display:flex;flex-direction:column;align-items:center;gap:1px">
+<div style="font:700 15px 'Noto Sans JP',sans-serif;color:#17232E">{{ monthLabel }}</div>
+<div style="font:500 10.5px 'Noto Sans JP',sans-serif;color:#7B8896">{{ screenSub }}</div>
+</div>
+<div onClick="{{ nextMonth }}" style="width:30px;height:30px;border-radius:10px;background:#F1F5F9;display:flex;align-items:center;justify-content:center;cursor:pointer;color:#4C5C6B;font:600 13px Manrope,sans-serif">›</div>
+</div>
+</sc-if>
+
+<div style="flex:1;overflow:auto;padding:0 0 108px">
+
+<sc-if value="{{ isHome }}" hint-placeholder-val="{{ true }}">
+<div style="padding:18px 16px 0;display:flex;flex-direction:column;gap:14px">
+
+<sc-if value="{{ quickOn }}" hint-placeholder-val="{{ true }}">
+<div style="background:#fff;border-radius:18px;padding:14px 14px 16px;box-shadow:0 1px 2px rgba(20,40,60,.06)">
+<div style="font:700 12px 'Noto Sans JP',sans-serif;color:#17232E;margin-bottom:12px">すぐ記録</div>
+<div style="display:grid;grid-template-columns:repeat(4,1fr);gap:8px">
+<sc-for list="{{ quickCats }}" as="q" hint-placeholder-count="4">
+<div onClick="{{ q.press }}" style="display:flex;flex-direction:column;align-items:center;gap:6px;cursor:pointer">
+<div style="width:46px;height:46px;border-radius:15px;display:flex;align-items:center;justify-content:center;font:700 17px 'Noto Sans JP',sans-serif;color:#fff;background:{{ q.bg }}">{{ q.ch }}</div>
+<div style="font:500 10.5px 'Noto Sans JP',sans-serif;color:#5A6874">{{ q.label }}</div>
+</div>
+</sc-for>
+</div>
+</div>
+</sc-if>
+
+<div style="background:#fff;border-radius:18px;padding:16px;box-shadow:0 1px 2px rgba(20,40,60,.06)">
+<div style="display:flex;align-items:baseline;justify-content:space-between;margin-bottom:14px">
+<div style="font:700 12px 'Noto Sans JP',sans-serif;color:#17232E">カテゴリ別の予算</div>
+<div onClick="{{ goReport }}" style="font:500 10.5px 'Noto Sans JP',sans-serif;color:var(--accent,#1B90D6);cursor:pointer">レポート ›</div>
+</div>
+<div style="display:flex;flex-direction:column;gap:13px">
+<sc-for list="{{ budgetRows }}" as="b" hint-placeholder-count="4">
+<div style="display:flex;flex-direction:column;gap:6px">
+<div style="display:flex;align-items:center;gap:9px">
+<div style="width:22px;height:22px;border-radius:7px;display:flex;align-items:center;justify-content:center;font:700 11px 'Noto Sans JP',sans-serif;color:#fff;background:{{ b.bg }}">{{ b.ch }}</div>
+<div style="font:500 11.5px 'Noto Sans JP',sans-serif;color:#3C4B58;flex:1">{{ b.label }}</div>
+<div style="font:700 12px Manrope,sans-serif;color:#17232E;font-variant-numeric:tabular-nums">¥{{ b.amountLabel }}</div>
+<div style="font:500 10.5px Manrope,sans-serif;color:#8E9BA7;width:38px;text-align:right">{{ b.pctLabel }}%</div>
+</div>
+<div style="height:5px;border-radius:99px;background:#EEF2F6;overflow:hidden">
+<div style="height:100%;border-radius:99px;background:{{ b.bg }};width:{{ b.barW }}%"></div>
+</div>
+</div>
+</sc-for>
+</div>
+</div>
+
+<div style="background:#fff;border-radius:18px;padding:16px;box-shadow:0 1px 2px rgba(20,40,60,.06);display:flex;align-items:center;gap:16px">
+<div style="width:88px;height:88px;border-radius:50%;position:relative;flex:none;background:conic-gradient({{ goalRing }})">
+<div style="position:absolute;inset:9px;border-radius:50%;background:#fff;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:0">
+<div style="font:800 19px Manrope,sans-serif;color:#17232E">{{ goalPctLabel }}%</div>
+<div style="font:500 9px 'Noto Sans JP',sans-serif;color:#8E9BA7">達成</div>
+</div>
+</div>
+<div style="flex:1;display:flex;flex-direction:column;gap:5px">
+<div style="font:700 12px 'Noto Sans JP',sans-serif;color:#17232E">貯金目標・沖縄旅行</div>
+<div style="font:800 20px Manrope,sans-serif;color:#17232E;font-variant-numeric:tabular-nums">¥{{ goalAmountLabel }}</div>
+<div style="font:500 10.5px 'Noto Sans JP',sans-serif;color:#7B8896">目標 ¥{{ goalTargetLabel }}・あと ¥{{ goalRemainLabel }}</div>
+<div style="font:500 10.5px 'Noto Sans JP',sans-serif;color:var(--accent,#1B90D6)">この調子なら 12月 に到達</div>
+</div>
+</div>
+
+<div style="background:#fff;border-radius:18px;padding:16px 16px 6px;box-shadow:0 1px 2px rgba(20,40,60,.06)">
+<div style="display:flex;align-items:baseline;justify-content:space-between;margin-bottom:6px">
+<div style="font:700 12px 'Noto Sans JP',sans-serif;color:#17232E">最近の記録</div>
+<div onClick="{{ goHistory }}" style="font:500 10.5px 'Noto Sans JP',sans-serif;color:var(--accent,#1B90D6);cursor:pointer">すべて見る ›</div>
+</div>
+<div style="display:flex;flex-direction:column">
+<sc-for list="{{ recent }}" as="r" hint-placeholder-count="5">
+<div style="display:flex;align-items:center;gap:11px;padding:11px 0;border-bottom:1px solid #F1F5F9">
+<div style="width:34px;height:34px;border-radius:11px;display:flex;align-items:center;justify-content:center;font:700 14px 'Noto Sans JP',sans-serif;color:#fff;background:{{ r.bg }}">{{ r.ch }}</div>
+<div style="flex:1;display:flex;flex-direction:column;gap:2px;min-width:0">
+<div style="font:500 12px 'Noto Sans JP',sans-serif;color:#17232E;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">{{ r.memo }}</div>
+<div style="font:400 10px 'Noto Sans JP',sans-serif;color:#8E9BA7">{{ r.sub }}</div>
+</div>
+<div style="font:700 13.5px Manrope,sans-serif;font-variant-numeric:tabular-nums;color:{{ r.color }}">{{ r.amountLabel }}</div>
+</div>
+</sc-for>
+</div>
+</div>
+</div>
+</sc-if>
+
+<sc-if value="{{ isCal }}" hint-placeholder-val="{{ false }}">
+<div style="padding:14px 14px 0;display:flex;flex-direction:column;gap:12px">
+<div style="background:#fff;border-radius:18px;padding:14px 12px 16px;box-shadow:0 1px 2px rgba(20,40,60,.06)">
+<div style="display:grid;grid-template-columns:repeat(7,1fr);gap:4px;margin-bottom:6px">
+<sc-for list="{{ weekdays }}" as="w" hint-placeholder-count="7">
+<div style="text-align:center;font:600 10px 'Noto Sans JP',sans-serif;color:{{ w.color }}">{{ w.label }}</div>
+</sc-for>
+</div>
+<div style="display:grid;grid-template-columns:repeat(7,1fr);gap:4px">
+<sc-for list="{{ calCells }}" as="c" hint-placeholder-count="35">
+<div onClick="{{ c.press }}" style="height:54px;border-radius:11px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;cursor:pointer;background:{{ c.bg }};border:1.5px solid {{ c.bd }}">
+<div style="font:600 12px Manrope,sans-serif;color:{{ c.numColor }}">{{ c.dayLabel }}</div>
+<div style="font:600 9px Manrope,sans-serif;font-variant-numeric:tabular-nums;color:{{ c.amtColor }}">{{ c.amtLabel }}</div>
+</div>
+</sc-for>
+</div>
+</div>
+<div style="background:#fff;border-radius:18px;padding:15px 16px 8px;box-shadow:0 1px 2px rgba(20,40,60,.06)">
+<div style="display:flex;align-items:baseline;justify-content:space-between;padding-bottom:4px">
+<div style="font:700 12.5px 'Noto Sans JP',sans-serif;color:#17232E">{{ dayTitle }}</div>
+<div style="font:700 12.5px Manrope,sans-serif;color:#17232E;font-variant-numeric:tabular-nums">合計 ¥{{ dayTotalLabel }}</div>
+</div>
+<sc-for list="{{ dayRows }}" as="r" hint-placeholder-count="3">
+<div style="display:flex;align-items:center;gap:11px;padding:11px 0;border-top:1px solid #F1F5F9">
+<div style="width:32px;height:32px;border-radius:10px;display:flex;align-items:center;justify-content:center;font:700 13px 'Noto Sans JP',sans-serif;color:#fff;background:{{ r.bg }}">{{ r.ch }}</div>
+<div style="flex:1;display:flex;flex-direction:column;gap:2px;min-width:0">
+<div style="font:500 12px 'Noto Sans JP',sans-serif;color:#17232E">{{ r.memo }}</div>
+<div style="font:400 10px 'Noto Sans JP',sans-serif;color:#8E9BA7">{{ r.sub }}</div>
+</div>
+<div style="font:700 13px Manrope,sans-serif;font-variant-numeric:tabular-nums;color:{{ r.color }}">{{ r.amountLabel }}</div>
+</div>
+</sc-for>
+<sc-if value="{{ dayEmpty }}" hint-placeholder-val="{{ false }}">
+<div style="padding:22px 0 24px;text-align:center;font:400 11.5px 'Noto Sans JP',sans-serif;color:#A9B6C2">この日の記録はありません</div>
+</sc-if>
+<div onClick="{{ addOnDay }}" style="margin:6px 0 10px;padding:11px;border-radius:12px;border:1.5px dashed #CFDBE5;text-align:center;font:600 11.5px 'Noto Sans JP',sans-serif;color:var(--accent,#1B90D6);cursor:pointer">この日に記録を追加</div>
+</div>
+</div>
+</sc-if>
+
+<sc-if value="{{ isHist }}" hint-placeholder-val="{{ false }}">
+<div style="padding:12px 14px 0;display:flex;flex-direction:column;gap:11px">
+<div style="display:flex;align-items:center;gap:8px;background:#fff;border-radius:13px;padding:10px 13px;box-shadow:0 1px 2px rgba(20,40,60,.06)">
+<div style="width:13px;height:13px;border-radius:50%;border:2px solid #A9B6C2;flex:none"></div>
+<input value="{{ query }}" onChange="{{ onQuery }}" placeholder="店名・メモで検索" style="flex:1;border:none;outline:none;font-size:12.5px;color:#17232E;background:transparent"></input>
+<sc-if value="{{ hasQuery }}" hint-placeholder-val="{{ false }}">
+<div onClick="{{ clearQuery }}" style="font:500 11px 'Noto Sans JP',sans-serif;color:#8E9BA7;cursor:pointer">消す</div>
+</sc-if>
+</div>
+<div style="display:flex;gap:7px;overflow-x:auto;padding-bottom:2px">
+<sc-for list="{{ filterChips }}" as="f" hint-placeholder-count="6">
+<div onClick="{{ f.press }}" style="flex:none;padding:7px 13px;border-radius:999px;font:600 11px 'Noto Sans JP',sans-serif;cursor:pointer;white-space:nowrap;background:{{ f.bg }};color:{{ f.fg }};border:1px solid {{ f.bd }}">{{ f.label }}</div>
+</sc-for>
+</div>
+<div style="display:flex;align-items:baseline;justify-content:space-between;padding:0 2px">
+<div style="font:500 11px 'Noto Sans JP',sans-serif;color:#7B8896">{{ histCountLabel }}</div>
+<div style="font:700 12px Manrope,sans-serif;color:#17232E;font-variant-numeric:tabular-nums">¥{{ histTotalLabel }}</div>
+</div>
+<sc-for list="{{ histGroups }}" as="g" hint-placeholder-count="4">
+<div style="background:#fff;border-radius:16px;padding:12px 14px 4px;box-shadow:0 1px 2px rgba(20,40,60,.06)">
+<div style="display:flex;align-items:baseline;justify-content:space-between;padding-bottom:6px">
+<div style="font:700 11.5px 'Noto Sans JP',sans-serif;color:#3C4B58">{{ g.dateLabel }}</div>
+<div style="font:600 11px Manrope,sans-serif;color:#8E9BA7;font-variant-numeric:tabular-nums">¥{{ g.totalLabel }}</div>
+</div>
+<sc-for list="{{ g.rows }}" as="r" hint-placeholder-count="2">
+<div style="display:flex;align-items:center;gap:11px;padding:10px 0;border-top:1px solid #F1F5F9">
+<div style="width:32px;height:32px;border-radius:10px;display:flex;align-items:center;justify-content:center;font:700 13px 'Noto Sans JP',sans-serif;color:#fff;background:{{ r.bg }}">{{ r.ch }}</div>
+<div style="flex:1;display:flex;flex-direction:column;gap:2px;min-width:0">
+<div style="font:500 12px 'Noto Sans JP',sans-serif;color:#17232E">{{ r.memo }}</div>
+<div style="font:400 10px 'Noto Sans JP',sans-serif;color:#8E9BA7">{{ r.sub }}</div>
+</div>
+<div style="font:700 13px Manrope,sans-serif;font-variant-numeric:tabular-nums;color:{{ r.color }}">{{ r.amountLabel }}</div>
+</div>
+</sc-for>
+</div>
+</sc-for>
+<sc-if value="{{ histEmpty }}" hint-placeholder-val="{{ false }}">
+<div style="padding:40px 0;text-align:center;font:400 12px 'Noto Sans JP',sans-serif;color:#A9B6C2">該当する記録がありません</div>
+</sc-if>
+</div>
+</sc-if>
+
+<sc-if value="{{ isRep }}" hint-placeholder-val="{{ false }}">
+<div style="padding:14px 14px 0;display:flex;flex-direction:column;gap:12px">
+<div style="background:#fff;border-radius:18px;padding:18px 16px;box-shadow:0 1px 2px rgba(20,40,60,.06);display:flex;flex-direction:column;align-items:center;gap:16px">
+<div style="width:172px;height:172px;border-radius:50%;position:relative;background:conic-gradient({{ donut }})">
+<div style="position:absolute;inset:26px;border-radius:50%;background:#fff;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px">
+<div style="font:500 10px 'Noto Sans JP',sans-serif;color:#8E9BA7">支出合計</div>
+<div style="font:800 22px Manrope,sans-serif;color:#17232E;font-variant-numeric:tabular-nums">¥{{ spentLabel }}</div>
+<div style="font:600 10px 'Noto Sans JP',sans-serif;color:#7B8896">{{ txCountLabel }}</div>
+</div>
+</div>
+<div style="width:100%;display:flex;flex-direction:column;gap:11px">
+<sc-for list="{{ legend }}" as="l" hint-placeholder-count="6">
+<div style="display:flex;align-items:center;gap:10px">
+<div style="width:9px;height:9px;border-radius:3px;flex:none;background:{{ l.bg }}"></div>
+<div style="font:500 11.5px 'Noto Sans JP',sans-serif;color:#3C4B58;width:56px">{{ l.label }}</div>
+<div style="flex:1;height:6px;border-radius:99px;background:#EEF2F6;overflow:hidden">
+<div style="height:100%;border-radius:99px;background:{{ l.bg }};width:{{ l.barW }}%"></div>
+</div>
+<div style="font:700 11.5px Manrope,sans-serif;color:#17232E;font-variant-numeric:tabular-nums;width:64px;text-align:right">¥{{ l.amountLabel }}</div>
+<div style="font:500 10px Manrope,sans-serif;color:#8E9BA7;width:32px;text-align:right">{{ l.pctLabel }}%</div>
+</div>
+</sc-for>
+</div>
+</div>
+
+<div style="background:#fff;border-radius:18px;padding:16px;box-shadow:0 1px 2px rgba(20,40,60,.06)">
+<div style="font:700 12px 'Noto Sans JP',sans-serif;color:#17232E;margin-bottom:16px">週ごとの支出</div>
+<div style="display:flex;align-items:flex-end;gap:10px;height:120px">
+<sc-for list="{{ weekBars }}" as="w" hint-placeholder-count="5">
+<div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:7px;justify-content:flex-end;height:100%">
+<div style="font:600 9.5px Manrope,sans-serif;color:#7B8896;font-variant-numeric:tabular-nums">{{ w.amountLabel }}</div>
+<div style="width:100%;border-radius:8px 8px 3px 3px;background:{{ w.bg }};height:{{ w.h }}px"></div>
+<div style="font:500 9.5px 'Noto Sans JP',sans-serif;color:#8E9BA7">{{ w.label }}</div>
+</div>
+</sc-for>
+</div>
+</div>
+
+<div style="background:#fff;border-radius:18px;padding:16px;box-shadow:0 1px 2px rgba(20,40,60,.06);display:flex;flex-direction:column;gap:12px">
+<div style="font:700 12px 'Noto Sans JP',sans-serif;color:#17232E">固定費と変動費</div>
+<div style="display:flex;height:14px;border-radius:99px;overflow:hidden">
+<div style="background:var(--accent-deep,#0E6FAF);width:{{ fixedPct }}%"></div>
+<div style="background:var(--accent-soft2,#9BD0EE);flex:1"></div>
+</div>
+<div style="display:flex;gap:18px">
+<div style="display:flex;align-items:center;gap:7px">
+<div style="width:9px;height:9px;border-radius:3px;background:var(--accent-deep,#0E6FAF)"></div>
+<div style="font:500 11px 'Noto Sans JP',sans-serif;color:#3C4B58">固定費 ¥{{ fixedLabel }}</div>
+</div>
+<div style="display:flex;align-items:center;gap:7px">
+<div style="width:9px;height:9px;border-radius:3px;background:var(--accent-soft2,#9BD0EE)"></div>
+<div style="font:500 11px 'Noto Sans JP',sans-serif;color:#3C4B58">変動費 ¥{{ varLabel }}</div>
+</div>
+</div>
+<div style="padding:12px 13px;border-radius:12px;background:var(--accent-soft,#E8F4FC);font:400 11.5px/1.7 'Noto Sans JP',sans-serif;color:#2A5670;text-wrap:pretty">{{ summaryText }}</div>
+</div>
+</div>
+</sc-if>
+
+</div>
+
+<div style="position:absolute;left:0;right:0;bottom:0;height:88px;background:rgba(255,255,255,.94);backdrop-filter:blur(14px);border-top:1px solid #E4EBF1;display:grid;grid-template-columns:repeat(5,1fr);align-items:start;padding-top:11px;z-index:40">
+<div onClick="{{ goHome }}" style="display:flex;flex-direction:column;align-items:center;gap:5px;cursor:pointer;color:{{ cHome }}">
+<div style="width:18px;height:18px;border-radius:5px;border:2px solid currentColor"></div>
+<div style="font:600 9.5px 'Noto Sans JP',sans-serif">ホーム</div>
+</div>
+<div onClick="{{ goCal }}" style="display:flex;flex-direction:column;align-items:center;gap:5px;cursor:pointer;color:{{ cCal }}">
+<div style="width:18px;height:18px;display:grid;grid-template-columns:repeat(3,1fr);grid-template-rows:repeat(3,1fr);gap:2px">
+<sc-for list="{{ nine }}" as="n" hint-placeholder-count="9">
+<div style="background:currentColor;border-radius:1px"></div>
+</sc-for>
+</div>
+<div style="font:600 9.5px 'Noto Sans JP',sans-serif">カレンダー</div>
+</div>
+<div style="display:flex;justify-content:center">
+<div onClick="{{ openSheetPlain }}" style="width:54px;height:54px;border-radius:50%;margin-top:-16px;background:linear-gradient(160deg,var(--accent-lite,#3BA6E4),var(--accent-deep,#0E6FAF));box-shadow:0 8px 18px rgba(14,111,175,.36);display:flex;align-items:center;justify-content:center;cursor:pointer;position:relative">
+<div style="position:absolute;width:20px;height:2.5px;border-radius:2px;background:#fff"></div>
+<div style="position:absolute;width:2.5px;height:20px;border-radius:2px;background:#fff"></div>
+</div>
+</div>
+<div onClick="{{ goHistory }}" style="display:flex;flex-direction:column;align-items:center;gap:5px;cursor:pointer;color:{{ cHist }}">
+<div style="width:18px;height:18px;display:flex;flex-direction:column;justify-content:center;gap:3.5px">
+<div style="height:2px;border-radius:2px;background:currentColor"></div>
+<div style="height:2px;border-radius:2px;background:currentColor"></div>
+<div style="height:2px;border-radius:2px;background:currentColor;width:60%"></div>
+</div>
+<div style="font:600 9.5px 'Noto Sans JP',sans-serif">履歴</div>
+</div>
+<div onClick="{{ goReport }}" style="display:flex;flex-direction:column;align-items:center;gap:5px;cursor:pointer;color:{{ cRep }}">
+<div style="width:18px;height:18px;display:flex;align-items:flex-end;gap:3px">
+<div style="flex:1;height:8px;border-radius:2px;background:currentColor"></div>
+<div style="flex:1;height:16px;border-radius:2px;background:currentColor"></div>
+<div style="flex:1;height:12px;border-radius:2px;background:currentColor"></div>
+</div>
+<div style="font:600 9.5px 'Noto Sans JP',sans-serif">レポート</div>
+</div>
+</div>
+
+<sc-if value="{{ sheetOpen }}" hint-placeholder-val="{{ false }}">
+<div style="position:absolute;inset:0;z-index:80;background:rgba(15,32,45,.42);animation:fadeIn .18s ease-out">
+<div onClick="{{ closeSheet }}" style="height:120px"></div>
+<div style="position:absolute;left:0;right:0;bottom:0;top:120px;background:#F7FAFC;border-radius:26px 26px 0 0;display:flex;flex-direction:column;animation:sheetUp .26s cubic-bezier(.22,.85,.3,1);overflow:hidden">
+<div style="display:flex;align-items:center;justify-content:space-between;padding:15px 18px 12px;border-bottom:1px solid #E9EFF4">
+<div onClick="{{ closeSheet }}" style="font:500 12.5px 'Noto Sans JP',sans-serif;color:#7B8896;cursor:pointer;width:56px">キャンセル</div>
+<div style="display:flex;background:#EDF2F6;border-radius:999px;padding:3px">
+<div onClick="{{ setExpense }}" style="padding:6px 16px;border-radius:999px;font:600 11.5px 'Noto Sans JP',sans-serif;cursor:pointer;background:{{ expBg }};color:{{ expFg }}">支出</div>
+<div onClick="{{ setIncome }}" style="padding:6px 16px;border-radius:999px;font:600 11.5px 'Noto Sans JP',sans-serif;cursor:pointer;background:{{ incBg }};color:{{ incFg }}">収入</div>
+</div>
+<div style="width:56px"></div>
+</div>
+
+<div style="padding:16px 20px 12px;display:flex;flex-direction:column;gap:12px">
+<div style="display:flex;align-items:flex-end;justify-content:flex-end;gap:6px">
+<div style="font:600 16px Manrope,sans-serif;color:#8E9BA7;padding-bottom:5px">¥</div>
+<div style="font:800 40px/1 Manrope,sans-serif;letter-spacing:-.02em;font-variant-numeric:tabular-nums;color:{{ amtColor }}">{{ sheetAmountLabel }}</div>
+</div>
+<div style="display:flex;gap:8px">
+<div onClick="{{ cycleDate }}" style="flex:1;padding:9px 11px;border-radius:11px;background:#fff;border:1px solid #E4EBF1;display:flex;flex-direction:column;gap:2px;cursor:pointer">
+<div style="font:500 9px 'Noto Sans JP',sans-serif;color:#8E9BA7">日付</div>
+<div style="font:600 11.5px 'Noto Sans JP',sans-serif;color:#17232E">{{ sheetDateLabel }}</div>
+</div>
+<div onClick="{{ cycleAcc }}" style="flex:1;padding:9px 11px;border-radius:11px;background:#fff;border:1px solid #E4EBF1;display:flex;flex-direction:column;gap:2px;cursor:pointer">
+<div style="font:500 9px 'Noto Sans JP',sans-serif;color:#8E9BA7">支払い方法</div>
+<div style="font:600 11.5px 'Noto Sans JP',sans-serif;color:#17232E">{{ sheetAcc }}</div>
+</div>
+</div>
+<input value="{{ sheetMemo }}" onChange="{{ onMemo }}" placeholder="メモ（任意）" style="padding:11px 12px;border-radius:11px;border:1px solid #E4EBF1;background:#fff;font-size:12px;color:#17232E;outline:none"></input>
+<div style="display:grid;grid-template-columns:repeat(5,1fr);gap:9px">
+<sc-for list="{{ catCells }}" as="c" hint-placeholder-count="10">
+<div onClick="{{ c.press }}" style="display:flex;flex-direction:column;align-items:center;gap:5px;cursor:pointer">
+<div style="width:40px;height:40px;border-radius:13px;display:flex;align-items:center;justify-content:center;font:700 15px 'Noto Sans JP',sans-serif;color:#fff;background:{{ c.bg }};box-shadow:{{ c.ring }};opacity:{{ c.op }}">{{ c.ch }}</div>
+<div style="font:500 9.5px 'Noto Sans JP',sans-serif;color:{{ c.fg }}">{{ c.label }}</div>
+</div>
+</sc-for>
+</div>
+</div>
+
+<div style="margin-top:auto;padding:12px 12px 30px;background:#EDF2F6;border-top:1px solid #E2E9EF">
+<div style="display:grid;grid-template-columns:repeat(4,1fr);gap:8px">
+<sc-for list="{{ padKeys }}" as="k" hint-placeholder-count="14">
+<div onClick="{{ k.press }}" style="height:46px;border-radius:12px;display:flex;align-items:center;justify-content:center;cursor:pointer;font:600 18px Manrope,sans-serif;box-shadow:0 1px 1px rgba(20,40,60,.08);background:{{ k.bg }};color:{{ k.fg }}">{{ k.label }}</div>
+</sc-for>
+<div onClick="{{ saveTx }}" style="grid-column:span 2;height:46px;border-radius:12px;display:flex;align-items:center;justify-content:center;cursor:pointer;font:700 13.5px 'Noto Sans JP',sans-serif;color:#fff;background:{{ saveBg }};box-shadow:0 3px 10px rgba(14,111,175,.28)">記録する</div>
+</div>
+</div>
+</div>
+</div>
+</sc-if>
+
+<sc-if value="{{ toast }}" hint-placeholder-val="{{ false }}">
+<div style="position:absolute;left:50%;bottom:110px;transform:translateX(-50%);z-index:90;padding:10px 18px;border-radius:999px;background:rgba(23,35,46,.92);color:#fff;font:600 11.5px 'Noto Sans JP',sans-serif;animation:toastIn .2s ease-out;white-space:nowrap">{{ toast }}</div>
+</sc-if>
+
+</div>
+</x-import>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;accent&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;スカイブルー&quot;,&quot;ティール&quot;,&quot;ネイビー&quot;],&quot;default&quot;:&quot;スカイブルー&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;テーマ&quot;},&quot;monthlyBudget&quot;:{&quot;editor&quot;:&quot;int&quot;,&quot;default&quot;:220000,&quot;min&quot;:100000,&quot;max&quot;:500000,&quot;step&quot;:10000,&quot;unit&quot;:&quot;円&quot;,&quot;tsType&quot;:&quot;number&quot;,&quot;section&quot;:&quot;データ&quot;},&quot;showQuickAdd&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;ホーム&quot;}}">
+class Component extends DCLogic {
+  cats = [
+    { id: 'food', label: '食費', ch: '食', color: 'oklch(0.62 0.13 245)', fixed: false },
+    { id: 'daily', label: '日用品', ch: '品', color: 'oklch(0.63 0.12 200)', fixed: false },
+    { id: 'transport', label: '交通', ch: '交', color: 'oklch(0.60 0.13 275)', fixed: false },
+    { id: 'fun', label: '娯楽', ch: '楽', color: 'oklch(0.62 0.13 315)', fixed: false },
+    { id: 'rent', label: '住居', ch: '住', color: 'oklch(0.60 0.11 160)', fixed: true },
+    { id: 'util', label: '光熱費', ch: '光', color: 'oklch(0.68 0.13 75)', fixed: true },
+    { id: 'comm', label: '通信', ch: '通', color: 'oklch(0.60 0.12 225)', fixed: true },
+    { id: 'health', label: '医療', ch: '医', color: 'oklch(0.62 0.13 25)', fixed: false },
+    { id: 'cloth', label: '衣服', ch: '服', color: 'oklch(0.63 0.12 345)', fixed: false },
+    { id: 'other', label: 'その他', ch: '他', color: 'oklch(0.60 0.04 250)', fixed: false },
+    { id: 'salary', label: '給与', ch: '給', color: 'oklch(0.58 0.12 155)', fixed: false },
+  ];
+
+  themes = {
+    'スカイブルー': { a: '#1B90D6', lite: '#3BA6E4', deep: '#0E6FAF', soft: '#E8F4FC', soft2: '#9BD0EE' },
+    'ティール': { a: '#128FA3', lite: '#2FAFC0', deep: '#0A6C7D', soft: '#E5F5F7', soft2: '#94D5DE' },
+    'ネイビー': { a: '#2C63C4', lite: '#4A80DC', deep: '#1B4794', soft: '#EAF0FC', soft2: '#A9C1EE' },
+  };
+
+  state = {
+    tab: 'home', month: 8, selDay: 30,
+    sheetOpen: false, amount: '', cat: 'food', type: 'expense', memo: '', acc: 'カード', sheetDay: 30,
+    query: '', filter: 'all', toast: '',
+    tx: [
+      { m: 8, d: 30, cat: 'food', memo: 'スーパー・ライフ', amt: 4820, acc: 'カード' },
+      { m: 8, d: 30, cat: 'transport', memo: 'JR 定期外', amt: 640, acc: '交通IC' },
+      { m: 8, d: 29, cat: 'fun', memo: '映画 2枚', amt: 3600, acc: 'カード' },
+      { m: 8, d: 29, cat: 'food', memo: 'カフェ', amt: 1180, acc: '現金' },
+      { m: 8, d: 28, cat: 'daily', memo: 'ドラッグストア', amt: 2740, acc: 'カード' },
+      { m: 8, d: 27, cat: 'food', memo: 'ランチ', amt: 980, acc: '現金' },
+      { m: 8, d: 26, cat: 'comm', memo: '携帯料金', amt: 4378, acc: '口座' },
+      { m: 8, d: 25, cat: 'salary', memo: '給与 8月', amt: 412000, acc: '口座', type: 'income' },
+      { m: 8, d: 25, cat: 'rent', memo: '家賃', amt: 98000, acc: '口座' },
+      { m: 8, d: 24, cat: 'food', memo: '週末のまとめ買い', amt: 7260, acc: 'カード' },
+      { m: 8, d: 23, cat: 'fun', memo: '書籍 2冊', amt: 2860, acc: 'カード' },
+      { m: 8, d: 22, cat: 'util', memo: '電気代', amt: 8940, acc: '口座' },
+      { m: 8, d: 21, cat: 'transport', memo: 'タクシー', amt: 1880, acc: '現金' },
+      { m: 8, d: 20, cat: 'health', memo: '歯科', amt: 3300, acc: '現金' },
+      { m: 8, d: 19, cat: 'food', memo: 'コンビニ', amt: 760, acc: 'カード' },
+      { m: 8, d: 18, cat: 'cloth', memo: 'Tシャツ', amt: 3990, acc: 'カード' },
+      { m: 8, d: 16, cat: 'daily', memo: '洗剤・詰替', amt: 1420, acc: 'カード' },
+      { m: 8, d: 15, cat: 'food', memo: 'ディナー 2名', amt: 6800, acc: 'カード' },
+      { m: 8, d: 12, cat: 'util', memo: '水道代', amt: 4210, acc: '口座' },
+      { m: 8, d: 10, cat: 'transport', memo: '定期券 更新', amt: 12420, acc: 'カード' },
+      { m: 8, d: 8, cat: 'fun', memo: 'サブスク 3件', amt: 2470, acc: 'カード' },
+      { m: 8, d: 6, cat: 'food', memo: 'スーパー', amt: 5340, acc: 'カード' },
+      { m: 8, d: 5, cat: 'other', memo: 'クリーニング', amt: 1650, acc: '現金' },
+      { m: 8, d: 3, cat: 'food', memo: '朝食パン', amt: 620, acc: '現金' },
+      { m: 8, d: 2, cat: 'daily', memo: '日用品まとめ', amt: 3180, acc: 'カード' },
+      { m: 7, d: 28, cat: 'food', memo: 'スーパー', amt: 6120, acc: 'カード' },
+      { m: 7, d: 26, cat: 'comm', memo: '携帯料金', amt: 4378, acc: '口座' },
+      { m: 7, d: 25, cat: 'salary', memo: '給与 7月', amt: 412000, acc: '口座', type: 'income' },
+      { m: 7, d: 25, cat: 'rent', memo: '家賃', amt: 98000, acc: '口座' },
+      { m: 7, d: 22, cat: 'util', memo: '電気代', amt: 10240, acc: '口座' },
+      { m: 7, d: 20, cat: 'fun', memo: '旅行 前払い', amt: 24800, acc: 'カード' },
+      { m: 7, d: 18, cat: 'food', memo: '外食', amt: 8600, acc: 'カード' },
+      { m: 7, d: 14, cat: 'transport', memo: '定期券', amt: 12420, acc: 'カード' },
+      { m: 7, d: 11, cat: 'daily', memo: '日用品', amt: 5390, acc: 'カード' },
+      { m: 7, d: 7, cat: 'health', memo: '内科', amt: 2160, acc: '現金' },
+      { m: 7, d: 4, cat: 'food', memo: 'カフェ', amt: 1480, acc: '現金' },
+      { m: 7, d: 2, cat: 'cloth', memo: 'サンダル', amt: 4980, acc: 'カード' },
+    ],
+  };
+
+  componentDidMount() { this.applyTheme(); }
+  componentDidUpdate() { this.applyTheme(); }
+  applyTheme() {
+    const t = this.themes[this.props.accent] || this.themes['スカイブルー'];
+    const r = document.documentElement.style;
+    r.setProperty('--accent', t.a);
+    r.setProperty('--accent-lite', t.lite);
+    r.setProperty('--accent-deep', t.deep);
+    r.setProperty('--accent-soft', t.soft);
+    r.setProperty('--accent-soft2', t.soft2);
+  }
+
+  theme() { return this.themes[this.props.accent] || this.themes['スカイブルー']; }
+  cat(id) { return this.cats.find(c => c.id === id) || this.cats[9]; }
+  fmt(n) { return Math.round(n).toLocaleString('en-US'); }
+  wd(m, d) { return ['日', '月', '火', '水', '木', '金', '土'][new Date(2026, m - 1, d).getDay()]; }
+  isExp(t) { return t.type !== 'income'; }
+
+  row(t, i) {
+    const c = this.cat(t.cat), exp = this.isExp(t);
+    return {
+      key: t.m + '-' + t.d + '-' + i, ch: c.ch, bg: c.color, memo: t.memo || c.label,
+      sub: c.label + '・' + t.acc,
+      amountLabel: (exp ? '-' : '+') + '¥' + this.fmt(t.amt),
+      color: exp ? '#17232E' : '#16A37B',
+    };
+  }
+
+  renderVals() {
+    const s = this.state, th = this.theme(), m = s.month;
+    const budget = this.props.monthlyBudget ?? 220000;
+    const mtx = s.tx.filter(t => t.m === m);
+    const exp = mtx.filter(t => this.isExp(t));
+    const spent = exp.reduce((a, t) => a + t.amt, 0);
+    const prev = s.tx.filter(t => t.m === m - 1 && this.isExp(t)).reduce((a, t) => a + t.amt, 0);
+    const delta = prev ? (spent - prev) / prev * 100 : 0;
+    const pct = budget ? spent / budget * 100 : 0;
+
+    // category totals
+    const byCat = {};
+    exp.forEach(t => { byCat[t.cat] = (byCat[t.cat] || 0) + t.amt; });
+    const ranked = Object.keys(byCat).map(id => ({ id, amt: byCat[id] })).sort((a, b) => b.amt - a.amt);
+    const max = ranked.length ? ranked[0].amt : 1;
+
+    // donut
+    let acc = 0;
+    const donut = ranked.map(r => {
+      const c = this.cat(r.id), from = acc / spent * 100; acc += r.amt;
+      return c.color + ' ' + from.toFixed(2) + '% ' + (acc / spent * 100).toFixed(2) + '%';
+    }).join(',') || '#E4EBF1 0% 100%';
+
+    // calendar
+    const first = new Date(2026, m - 1, 1).getDay();
+    const days = new Date(2026, m, 0).getDate();
+    const dayTot = {};
+    exp.forEach(t => { dayTot[t.d] = (dayTot[t.d] || 0) + t.amt; });
+    const cells = [];
+    const total = Math.ceil((first + days) / 7) * 7;
+    for (let i = 0; i < total; i++) {
+      const d = i - first + 1, inM = d >= 1 && d <= days;
+      const amt = dayTot[d] || 0, sel = inM && d === s.selDay, today = inM && m === 8 && d === 30;
+      const dow = i % 7;
+      cells.push({
+        key: i, dayLabel: inM ? String(d) : '',
+        amtLabel: inM && amt ? this.fmt(amt) : '',
+        bg: sel ? th.soft : (today ? '#F7FAFC' : '#fff'),
+        bd: sel ? th.a : (today ? '#DCE6EE' : 'transparent'),
+        numColor: !inM ? 'transparent' : (dow === 0 ? '#D9603F' : dow === 6 ? '#3E7FB8' : '#17232E'),
+        amtColor: amt > 8000 ? '#D9603F' : '#8E9BA7',
+        press: inM ? () => this.setState({ selDay: d }) : () => {},
+      });
+    }
+    const dayList = mtx.filter(t => t.d === s.selDay);
+    const dayTotal = dayList.filter(t => this.isExp(t)).reduce((a, t) => a + t.amt, 0);
+
+    // history
+    const q = s.query.trim();
+    const filtered = mtx.filter(t => {
+      if (s.filter !== 'all' && t.cat !== s.filter) return false;
+      if (!q) return true;
+      return (t.memo || '').includes(q) || this.cat(t.cat).label.includes(q);
+    });
+    const groups = [];
+    filtered.slice().sort((a, b) => b.d - a.d).forEach((t, i) => {
+      const g = groups[groups.length - 1];
+      if (g && g.d === t.d) { g.rows.push(this.row(t, i)); g.tot += this.isExp(t) ? t.amt : 0; }
+      else groups.push({ key: t.d, d: t.d, dateLabel: m + '月' + t.d + '日（' + this.wd(m, t.d) + '）', rows: [this.row(t, i)], tot: this.isExp(t) ? t.amt : 0 });
+    });
+    groups.forEach(g => { g.totalLabel = this.fmt(g.tot); });
+
+    // weeks
+    const wk = [0, 0, 0, 0, 0];
+    exp.forEach(t => { wk[Math.min(4, Math.floor((t.d - 1) / 7))] += t.amt; });
+    const wkMax = Math.max.apply(null, wk) || 1;
+
+    const fixed = exp.filter(t => this.cat(t.cat).fixed).reduce((a, t) => a + t.amt, 0);
+    const goal = 300000, saved = 186000;
+
+    const pk = (l, fn, alt) => ({ key: l, label: l, press: fn, bg: alt ? '#DFE7ED' : '#fff', fg: alt ? '#4C5C6B' : '#17232E' });
+    const digit = d => () => this.setState(st => ({ amount: (st.amount + d).replace(/^0+(?=\d)/, '').slice(0, 8) }));
+
+    return {
+      isHome: s.tab === 'home', isCal: s.tab === 'calendar', isHist: s.tab === 'history', isRep: s.tab === 'report',
+      showTopBar: s.tab !== 'home',
+      screenSub: s.tab === 'calendar' ? '日付をタップして内訳を表示' : s.tab === 'history' ? '記録の検索と絞り込み' : '月次レポート',
+      monthLabel: '2026年' + m + '月',
+      quickOn: this.props.showQuickAdd !== false,
+      spentLabel: this.fmt(spent), budgetLabel: this.fmt(budget),
+      remainLabel: this.fmt(Math.max(0, budget - spent)),
+      pctWidth: Math.min(100, pct).toFixed(1), pctLabel: pct.toFixed(0),
+      deltaLabel: '前月比 ' + (delta >= 0 ? '+' : '−') + Math.abs(delta).toFixed(1) + '%',
+      txCountLabel: exp.length + '件の支出',
+
+      quickCats: ['food', 'transport', 'daily', 'fun'].map(id => {
+        const c = this.cat(id);
+        return { key: id, label: c.label, ch: c.ch, bg: c.color, press: () => this.open(id) };
+      }),
+
+      budgetRows: ranked.slice(0, 4).map(r => {
+        const c = this.cat(r.id);
+        return { key: r.id, label: c.label, ch: c.ch, bg: c.color, amountLabel: this.fmt(r.amt), pctLabel: (r.amt / spent * 100).toFixed(0), barW: (r.amt / max * 100).toFixed(1) };
+      }),
+
+      goalRing: th.a + ' 0% ' + (saved / goal * 100).toFixed(1) + '%,#E7EEF4 ' + (saved / goal * 100).toFixed(1) + '% 100%',
+      goalPctLabel: (saved / goal * 100).toFixed(0), goalAmountLabel: this.fmt(saved),
+      goalTargetLabel: this.fmt(goal), goalRemainLabel: this.fmt(goal - saved),
+
+      recent: mtx.slice(0, 5).map((t, i) => this.row(t, i)),
+
+      weekdays: ['日', '月', '火', '水', '木', '金', '土'].map((l, i) => ({ key: l, label: l, color: i === 0 ? '#D9603F' : i === 6 ? '#3E7FB8' : '#8E9BA7' })),
+      calCells: cells,
+      dayTitle: m + '月' + s.selDay + '日（' + this.wd(m, s.selDay) + '）',
+      dayTotalLabel: this.fmt(dayTotal),
+      dayRows: dayList.map((t, i) => this.row(t, i)),
+      dayEmpty: dayList.length === 0,
+      addOnDay: () => this.open(s.filter === 'all' ? 'food' : s.filter, s.selDay),
+
+      query: s.query, hasQuery: !!s.query,
+      onQuery: e => this.setState({ query: e.target.value }),
+      clearQuery: () => this.setState({ query: '' }),
+      filterChips: [{ id: 'all', label: 'すべて' }].concat(ranked.map(r => ({ id: r.id, label: this.cat(r.id).label }))).map(f => {
+        const on = s.filter === f.id;
+        return { key: f.id, label: f.label, press: () => this.setState({ filter: f.id }), bg: on ? th.a : '#fff', fg: on ? '#fff' : '#5A6874', bd: on ? th.a : '#E4EBF1' };
+      }),
+      histGroups: groups,
+      histEmpty: groups.length === 0,
+      histCountLabel: filtered.filter(t => this.isExp(t)).length + '件の支出',
+      histTotalLabel: this.fmt(filtered.filter(t => this.isExp(t)).reduce((a, t) => a + t.amt, 0)),
+
+      donut,
+      legend: ranked.slice(0, 6).map(r => {
+        const c = this.cat(r.id);
+        return { key: r.id, label: c.label, bg: c.color, amountLabel: this.fmt(r.amt), pctLabel: (r.amt / spent * 100).toFixed(0), barW: (r.amt / max * 100).toFixed(1) };
+      }),
+      weekBars: wk.map((v, i) => ({ key: i, label: '第' + (i + 1) + '週', amountLabel: v ? this.fmt(Math.round(v / 1000)) + 'k' : '0', h: Math.max(4, v / wkMax * 84), bg: i === 4 ? th.soft2 : th.lite })),
+      fixedPct: (fixed / spent * 100).toFixed(1), fixedLabel: this.fmt(fixed), varLabel: this.fmt(spent - fixed),
+      summaryText: '固定費は先月と同額。変動費のうち食費が ¥' + this.fmt(byCat.food || 0) + 'で、週末のまとめ買いが支出の山になっています。第4週の支出を1万円抑えると予算内に収まります。',
+
+      goHome: () => this.setState({ tab: 'home' }), goCal: () => this.setState({ tab: 'calendar' }),
+      goHistory: () => this.setState({ tab: 'history' }), goReport: () => this.setState({ tab: 'report' }),
+      cHome: s.tab === 'home' ? th.a : '#9AA7B4', cCal: s.tab === 'calendar' ? th.a : '#9AA7B4',
+      cHist: s.tab === 'history' ? th.a : '#9AA7B4', cRep: s.tab === 'report' ? th.a : '#9AA7B4',
+      nine: [1, 2, 3, 4, 5, 6, 7, 8, 9].map(n => ({ key: n })),
+
+      sheetOpen: s.sheetOpen,
+      openSheetPlain: () => this.open(s.cat),
+      closeSheet: () => this.setState({ sheetOpen: false }),
+      setExpense: () => this.setState({ type: 'expense' }), setIncome: () => this.setState({ type: 'income', cat: 'salary' }),
+      expBg: s.type === 'expense' ? '#fff' : 'transparent', expFg: s.type === 'expense' ? th.deep : '#8E9BA7',
+      incBg: s.type === 'income' ? '#fff' : 'transparent', incFg: s.type === 'income' ? '#16A37B' : '#8E9BA7',
+      sheetAmountLabel: s.amount ? this.fmt(parseInt(s.amount, 10)) : '0',
+      amtColor: s.amount ? (s.type === 'income' ? '#16A37B' : '#17232E') : '#C4CFD9',
+      sheetDateLabel: m + '月' + s.sheetDay + '日（' + this.wd(m, s.sheetDay) + '）',
+      sheetAcc: s.acc, sheetMemo: s.memo,
+      onMemo: e => this.setState({ memo: e.target.value }),
+      cycleDate: () => this.setState(st => ({ sheetDay: st.sheetDay > 1 ? st.sheetDay - 1 : 30 })),
+      cycleAcc: () => this.setState(st => { const a = ['カード', '現金', '口座', '交通IC']; return { acc: a[(a.indexOf(st.acc) + 1) % a.length] }; }),
+      catCells: this.cats.filter(c => (s.type === 'income' ? c.id === 'salary' || c.id === 'other' : c.id !== 'salary')).map(c => {
+        const on = s.cat === c.id;
+        return { key: c.id, label: c.label, ch: c.ch, bg: c.color, op: on ? 1 : 0.42, fg: on ? '#17232E' : '#8E9BA7', ring: on ? '0 0 0 2.5px #fff,0 0 0 4.5px ' + c.color : 'none', press: () => this.setState({ cat: c.id }) };
+      }),
+      padKeys: [
+        pk('1', digit('1')), pk('2', digit('2')), pk('3', digit('3')),
+        { key: 'del', label: '⌫', press: () => this.setState(st => ({ amount: st.amount.slice(0, -1) })), bg: '#DFE7ED', fg: '#4C5C6B' },
+        pk('4', digit('4')), pk('5', digit('5')), pk('6', digit('6')), pk('00', digit('00'), true),
+        pk('7', digit('7')), pk('8', digit('8')), pk('9', digit('9')), pk('000', digit('000'), true),
+        { key: 'c', label: 'C', press: () => this.setState({ amount: '' }), bg: '#DFE7ED', fg: '#4C5C6B' },
+        pk('0', digit('0')),
+      ],
+      saveBg: s.amount ? (s.type === 'income' ? '#16A37B' : th.a) : '#B9C6D2',
+      saveTx: () => {
+        const n = parseInt(s.amount, 10);
+        if (!n) return;
+        this.setState(st => ({
+          tx: [{ m: st.month, d: st.sheetDay, cat: st.cat, memo: st.memo || this.cat(st.cat).label, amt: n, acc: st.acc, type: st.type }].concat(st.tx),
+          sheetOpen: false, amount: '', memo: '', selDay: st.sheetDay,
+          toast: (st.type === 'income' ? '収入' : '支出') + ' ¥' + this.fmt(n) + ' を記録しました',
+        }));
+        clearTimeout(this._t);
+        this._t = setTimeout(() => this.setState({ toast: '' }), 2400);
+      },
+      toast: s.toast,
+      openSettings: () => {
+        this.setState({ toast: '設定（このモックでは未実装）' });
+        clearTimeout(this._t);
+        this._t = setTimeout(() => this.setState({ toast: '' }), 2000);
+      },
+
+      prevMonth: () => this.setState(st => ({ month: Math.max(7, st.month - 1), selDay: Math.min(st.selDay, 28) })),
+      nextMonth: () => this.setState(st => ({ month: Math.min(8, st.month + 1) })),
+    };
+  }
+
+  open(cat, day) {
+    this.setState(st => ({ sheetOpen: true, cat: cat || st.cat, amount: '', memo: '', type: 'expense', sheetDay: day || st.sheetDay }));
+  }
+}
+</script>
+</body>
+</html>

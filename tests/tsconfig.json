@@ -1,0 +1,14 @@
+{
+  // テストは Metro ではなく Node (tsx) で動くため、
+  // アプリ側の bundler / react-native 条件付き解決とは分けて型チェックする。
+  "extends": "../tsconfig.json",
+  "compilerOptions": {
+    "moduleResolution": "bundler",
+    "customConditions": [],
+    "types": ["node"],
+    "noEmit": true,
+    "paths": { "@/*": ["../src/*"] }
+  },
+  "include": ["**/*.ts"],
+  "exclude": []
+}
