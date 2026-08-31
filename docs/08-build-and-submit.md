@@ -68,6 +68,14 @@ npx eas-cli submit --platform ios --latest
 処理中は選択できないので、時間を置いてから
 バージョンの画面で「ビルドを選択」する。
 
+## 提出時に必ず埋めること
+
+**App Review に関する情報 → メモ** を空のまま出すと、
+Guideline 2.1（Information Needed）で差し戻される。初回で最も多い理由。
+
+貼る文面は [09-app-review-notes.md](./09-app-review-notes.md) に用意してある。
+一度入れておけば次回以降の提出でも残る。
+
 ## つまずきやすい点
 
 | 症状 | 原因と対処 |
@@ -77,6 +85,7 @@ npx eas-cli submit --platform ios --latest
 | 「輸出コンプライアンス」を毎回訊かれる | `ITSAppUsesNonExemptEncryption: false` を設定済みなので出ないはず。出たら app.json を確認 |
 | 課金商品が「準備完了」にならない | 税務・銀行情報が未登録。これがないとアプリの審査ごと落ちる |
 | ATT のダイアログが審査で問題になる | 起動処理の最後、画面が見えたあとに出している（→ [06-monetization.md](./06-monetization.md)） |
+| Guideline 2.1 で情報を求められた | メモ欄が空だったのが原因。→ [09-app-review-notes.md](./09-app-review-notes.md) |
 
 ## 提出前の最終チェック
 
