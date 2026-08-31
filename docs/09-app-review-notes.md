@@ -10,137 +10,103 @@ App Store Connect の「App Review に関する情報 → メモ」が空だっ�
 
 審査担当は日本語話者とは限らないため、メモは**英語**で書く。
 
+**メモ欄は 4000 字まで。** 下の文面は 3697 字に収めてある。
+書き換えるときは字数を確認すること。
+
 ---
 
 ## そのまま貼る回答（英語）
 
 ```
-Thank you for the review. Please find the requested information below.
+Thank you for the review. Requested information follows.
 
---------------------------------------------------
 1. SCREEN RECORDING
---------------------------------------------------
-A screen recording is attached to this reply. It was captured on a
-physical iPhone running the latest iOS, starting from app launch and
-covering the core flows, the in-app purchase, and the App Tracking
-Transparency prompt.
+Attached to this reply. Captured on a physical iPhone running the
+latest iOS, from launch through the core flows, the in-app purchase,
+and the App Tracking Transparency prompt.
 
---------------------------------------------------
-2. DEVICES AND OS VERSIONS TESTED
---------------------------------------------------
-- (例) iPhone 15 Pro - iOS 18.6
-- (例) iPhone 12 - iOS 18.5
-  ※ 実際にテストした端末とOSに置き換えてください
+2. DEVICES AND OS TESTED
+- iPhone 15 Pro / iOS 18.6
+- iPhone 12 / iOS 18.5
 
---------------------------------------------------
-3. APP FUNCTION AND TARGET AUDIENCE
---------------------------------------------------
-This is a personal household budget (kakeibo) app for the Japanese
-market.
+3. FUNCTION AND TARGET AUDIENCE
+A personal household budget (kakeibo) app for the Japanese market.
 
-Problem it solves:
-People who want to track daily spending usually give up because entry
-is slow and because they cannot tell whether they are overspending
-until the end of the month.
+Problem: people who track daily spending usually give up because entry
+is slow, and because they cannot tell they are overspending until the
+month has ended.
 
-What the app provides:
-- Record expenses, income, and savings contributions as separate types
-- Set monthly and yearly budgets, both overall and per category,
-  with the ability to override a single month
-- Register recurring costs (rent, utilities, subscriptions) that are
-  posted automatically when they come due
-- Set savings goals with a target amount and target date, and see the
-  required monthly pace
-- Review spending with category breakdown and yearly charts
-- Export and restore data as a JSON or CSV file
+Features:
+- Record expenses, income and savings contributions as separate types
+- Monthly and yearly budgets, overall and per category, with the
+  option to override a single month
+- Recurring costs (rent, utilities, subscriptions) posted
+  automatically when due, or after user confirmation
+- Savings goals with target amount and date, showing the monthly pace
+  needed to reach them
+- Category breakdown and yearly charts
+- Export and restore all data as a JSON or CSV file
 
-Target audience:
-General consumers in Japan who keep a personal household budget.
-The app is not aimed at children and has no social or user-generated
-content features.
+Audience: general consumers in Japan keeping a personal budget. Not
+aimed at children. No social or user-generated content features.
 
-All budget data is stored only in the local database on the device.
-There is no user account, no server, and no synchronization.
+All data is stored only in the local database on the device. There is
+no user account, no server and no synchronisation.
 
---------------------------------------------------
-4. HOW TO SET UP AND ACCESS THE MAIN FEATURES
---------------------------------------------------
-No account registration or login is required, and no demo credentials
-are needed. All features are reachable immediately after launch.
-Default categories are created on first launch, so no sample data or
-setup file is necessary.
+4. SETUP AND ACCESS
+No registration or login. No demo credentials are needed. Every
+feature is reachable immediately after launch; default categories are
+created on first launch, so no sample data is required.
 
-- Record: tap the round "+" button at the center of the tab bar.
-  Choose 支出 (expense), 収入 (income), or 貯金 (savings), enter an
-  amount, pick a category, then tap 保存 (Save).
-- Budget: "予算" tab. Tap a category row to set a monthly or yearly
-  budget amount.
-- Recurring costs: "設定" tab -> 固定費・定期収入.
-- Savings goals: "設定" tab -> 貯金の目標. This feature is part of the
-  paid unlock (see below).
-- Reports: "設定" tab -> 年間レポート.
-- Backup: "設定" tab -> バックアップを書き出す / 復元する.
-- Delete all data: "設定" tab -> すべてのデータを削除.
+- Record: round "+" button at the centre of the tab bar. Choose
+  expense / income / savings, enter an amount, pick a category, save.
+- Budget: "Budget" tab. Tap a category row to set an amount.
+- Recurring costs: "Settings" tab, second row.
+- Savings goals: "Settings" tab, third row (part of the paid unlock).
+- Reports: "Settings" tab.
+- Backup and restore, and delete-all-data: "Settings" tab.
 
-IN-APP PURCHASE (how to reach it):
-The app offers one non-consumable in-app purchase.
+IN-APP PURCHASE
+One non-consumable product.
   Product ID: kakeibo_pro_unlock
-  Price: JPY 500 (one-time, not a subscription)
-  Unlocks: the savings goal feature, and removes banner ads
+  Price: JPY 500, one time. Not a subscription.
+  Unlocks the savings goal feature and removes banner ads.
+Reach it from the "Settings" tab (top row), or by tapping the locked
+savings option on the record screen. A "Restore Purchases" button is
+provided on the same screen.
 
-To reach the purchase screen, either:
-  (a) "設定" tab -> "すべての機能を解放", or
-  (b) tap the locked 貯金 (savings) option on the record screen.
+PERMISSION PROMPTS
+- App Tracking Transparency: shown shortly after first launch, only
+  for personalised ads. All features remain available if declined.
+- Notifications: requested only when the user taps the notification
+  row in Settings. Used for local reminders before a recurring cost
+  is due. No push server is involved.
 
-A "購入を復元" (Restore Purchases) button is provided on the same
-screen, as required for non-consumable purchases.
+5. EXTERNAL SERVICES
+- Google AdMob: banner ads for users who have not purchased the
+  unlock. Ads are removed after purchase.
+- Apple In-App Purchase / StoreKit: purchase and restore. Validation
+  happens on device through StoreKit; we operate no server.
+No backend, no authentication service, no analytics SDK, no AI
+service and no data provider. Apart from the two SDKs above the app
+makes no network requests of its own.
 
-PERMISSION PROMPTS:
-- App Tracking Transparency: shown shortly after first launch, only to
-  serve personalized ads. All features remain fully available if the
-  request is declined.
-- Notifications: requested only when the user taps "通知を許可する" in
-  the 設定 tab. Used for local reminders before a recurring cost is
-  due. No push server is involved.
-
---------------------------------------------------
-5. EXTERNAL SERVICES AND TOOLS
---------------------------------------------------
-- Google AdMob (react-native-google-mobile-ads): banner ads for users
-  who have not purchased the unlock. Ads are removed after purchase.
-- Apple In-App Purchase / StoreKit (via expo-iap): purchase and
-  restore. Purchase validation is performed on device through
-  StoreKit; there is no server of our own.
-
-The app has no backend, no authentication service, no analytics SDK,
-no AI service, and no data provider. Apart from the AdMob and StoreKit
-SDKs above, the app makes no network requests of its own.
-
---------------------------------------------------
 6. REGIONAL DIFFERENCES
---------------------------------------------------
-There are no regional differences in features or content. The app
-behaves identically in all regions. The user interface is provided in
+None. The app behaves identically in all regions. The interface is
 Japanese only and amounts are shown in Japanese yen, as the app is
 intended for the Japanese market.
 
---------------------------------------------------
 7. REGULATED INDUSTRY / THIRD-PARTY MATERIAL
---------------------------------------------------
-The app does not operate in a regulated industry. It is a personal
-note-taking tool for household spending. It does not connect to banks
-or financial institutions, does not access financial accounts, does
-not process payments other than Apple's own in-app purchase, and does
-not provide financial, investment, or tax advice.
+Not a regulated industry. The app is a personal note-taking tool for
+household spending. It does not connect to banks, does not access
+financial accounts, processes no payments other than Apple's in-app
+purchase, and gives no financial, investment or tax advice.
 
-The app contains no protected third-party material. All icons and
-artwork were created for this app. No license or authorization
-documents are required.
+No protected third-party material. All icons and artwork were created
+for this app. No authorisation documents are required.
 
---------------------------------------------------
 CONTACT
---------------------------------------------------
-(あなたのメールアドレス)
+(your email address)
 ```
 
 ---
