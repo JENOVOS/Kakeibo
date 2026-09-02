@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { ScrollView, StyleSheet, View } from 'react-native';
 import { useRouter } from 'expo-router';
 import { LinearGradient } from 'expo-linear-gradient';
@@ -46,20 +46,27 @@ export default function ProScreen() {
   const [loading, setLoading] = useState(true);
   const [message, setMessage] = useState<string | null>(null);
 
-  useEffect(() => {
-    let cancelled = false;
-    (async () => {
-      try {
-        const info = await loadProduct();
-        if (!cancelled) setProduct(info);
-      } finally {
-        if (!cancelled) setLoading(false);
-      }
-    })();
-    return () => {
-      cancelled = true;
-    };
+  /**
+   * 価格をストアから取り直す。
+   *
+   * 商品が取れないことは珍しくない（審査前で商品が未承認、圏外、
+   * StoreKit の一時的な失敗など）。取れなかったときに行き止まりにせず、
+   * ここを何度でも呼べるようにしておく。
+   */
+  const load = useCallback(async () => {
+    setLoading(true);
+    try {
+      setProduct(await loadProduct());
+    } catch {
+      setProduct(null);
+    } finally {
+      setLoading(false);
+    }
   }, []);
+
+  useEffect(() => {
+    void load();
+  }, [load]);
 
   async function handleBuy() {
     const result = await buy();
@@ -142,31 +149,42 @@ export default function ProScreen() {
           <View style={styles.actions}>
             {loading ? (
               <ActivityIndicator color={theme.colors.primary} />
+            ) : product ? (
+              <Button
+                mode="contained"
+                onPress={() => void handleBuy()}
+                loading={busy}
+                disabled={busy}
+                style={styles.buy}
+                contentStyle={styles.buyContent}
+              >
+                {`${product.displayPrice} で購入`}
+              </Button>
             ) : (
+              /* 価格が取れなくても行き止まりにしない。
+                 エラーだけを出して操作できない画面は「壊れている」と受け取られる。 */
               <>
                 <Button
                   mode="contained"
-                  onPress={() => void handleBuy()}
-                  loading={busy}
-                  disabled={busy || product === null}
+                  icon="refresh"
+                  onPress={() => void load()}
+                  disabled={busy}
                   style={styles.buy}
                   contentStyle={styles.buyContent}
                 >
-                  {product
-                    ? `${product.displayPrice} で購入`
-                    : 'ストアに接続できません'}
+                  価格を読み込む
                 </Button>
-                {product === null ? (
-                  <Text
-                    variant="bodySmall"
-                    style={[
-                      styles.note,
-                      { color: theme.colors.onSurfaceVariant },
-                    ]}
-                  >
-                    通信状況を確認して、開き直してください。
-                  </Text>
-                ) : null}
+                <Text
+                  variant="bodySmall"
+                  style={[
+                    styles.note,
+                    { color: theme.colors.onSurfaceVariant },
+                  ]}
+                >
+                  ただいま価格を取得できませんでした。
+                  通信環境をご確認のうえ、もう一度お試しください。
+                  購入済みの場合は下の「購入を復元」から引き継げます。
+                </Text>
               </>
             )}
 

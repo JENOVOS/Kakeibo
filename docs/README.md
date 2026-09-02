@@ -11,6 +11,7 @@
 | [07-store-listing.md](./07-store-listing.md) | ストア掲載文（概要・キーワード）とサポート/プライバシーページ |
 | [08-build-and-submit.md](./08-build-and-submit.md) | ビルドと App Store Connect への提出 |
 | [09-app-review-notes.md](./09-app-review-notes.md) | 審査への回答文（App Review 情報のメモ欄）と動画の撮り方 |
+| [10-rejection-2.1ab.md](./10-rejection-2.1ab.md) | 2回目の差し戻し（課金商品の未提出）への対応 |
 
 ## 3行での要約
 
